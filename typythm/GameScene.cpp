@@ -111,7 +111,7 @@ void GameScene::initCharacter() {
 	playerD->setName(0, 69);
 	playerD->setName(1, 21);
 	playerD->setName(2, 89);
-	playerC->setMyTurn(2);
+	playerD->setMyTurn(2);
 }
 
 void GameScene::setEnemyInstancetToCharacter() {
