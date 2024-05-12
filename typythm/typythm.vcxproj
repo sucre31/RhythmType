@@ -159,7 +159,7 @@
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="eScene.cpp" />
     <ClCompile Include="FpsControl.cpp" />
-    <ClCompile Include="GameManeger.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="eScene.h" />
     <ClInclude Include="FpsControl.h" />
-    <ClInclude Include="GameManeger.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Image.h" />

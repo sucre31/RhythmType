@@ -4,7 +4,7 @@
 #include <array>
 
 enum ePad {
-	left, up, right, down, A, B, Y, start, change
+	left, up, right, down, A, B, X, Y, L, R, start, change
 };
 
 class Pad final : public Singleton<Pad> {

@@ -2,7 +2,7 @@
 #include "PlayerCharacter.h"
 #include "Pad.h"
 #include "Sound.h"
-#include "GameManeger.h"
+#include "GameManager.h"
 
 
 PlayerCharacter::PlayerCharacter() {
@@ -11,7 +11,7 @@ PlayerCharacter::PlayerCharacter() {
 }
 
 bool PlayerCharacter::update() {
-	if (GameManeger::getIns()->getTurn() % 4 == myTurn) {
+	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
 		if (Pad::getIns()->get(ePad::up) == 1) {
 			myHP++;
 		}
@@ -27,6 +27,12 @@ bool PlayerCharacter::update() {
 			playSubSoundNumberMem(subSoundNumber);
 			reverseSub();
 			subSoundNumber++;
+		}
+		if (Pad::getIns()->get(ePad::R) == 1) {
+			GameManager::getIns()->plusTurn();
+		}
+		if (Pad::getIns()->get(ePad::L) == 1) {
+			GameManager::getIns()->minusTurn();
 		}
 		if (myHP < 0) {
 			myHP = 0;
