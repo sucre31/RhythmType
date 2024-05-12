@@ -151,7 +151,57 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractScene.cpp" />
+    <ClCompile Include="BackImage.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Define.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Error.cpp" />
+    <ClCompile Include="eScene.cpp" />
+    <ClCompile Include="FpsControl.cpp" />
+    <ClCompile Include="GameManeger.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="IOnSceneChangedListener.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Looper.cpp" />
+    <ClCompile Include="Macro.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pad.cpp" />
+    <ClCompile Include="Parameter.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="StatusWindow.cpp" />
+    <ClCompile Include="SystemMain.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="BackImage.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Error.h" />
+    <ClInclude Include="eScene.h" />
+    <ClInclude Include="FpsControl.h" />
+    <ClInclude Include="GameManeger.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="IOnSceneChangedListener.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Looper.h" />
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="Pad.h" />
+    <ClInclude Include="Parameter.h" />
+    <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="StatusWindow.h" />
+    <ClInclude Include="SystemMain.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
