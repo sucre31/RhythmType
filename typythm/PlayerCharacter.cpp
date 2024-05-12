@@ -8,10 +8,12 @@
 PlayerCharacter::PlayerCharacter() {
 	mainSoundNumber = 0;
 	subSoundNumber = 0;
+	myInstrument = new Instrument();
 }
 
 bool PlayerCharacter::update() {
 	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
+		isActive = true;
 		if (Pad::getIns()->get(ePad::up) == 1) {
 			myHP++;
 		}
@@ -29,11 +31,13 @@ bool PlayerCharacter::update() {
 			subSoundNumber++;
 		}
 		if (Pad::getIns()->get(ePad::R) == 1) {
-			GameManager::getIns()->plusTurn();
+			GameManager::getIns()->nextTurn();
+			isActive = false;
 		}
-		if (Pad::getIns()->get(ePad::L) == 1) {
-			GameManager::getIns()->minusTurn();
-		}
+		//if (Pad::getIns()->get(ePad::L) == 1) {
+		//	GameManager::getIns()->minusTurn();
+		//	isActive = false;
+		//}
 		if (myHP < 0) {
 			myHP = 0;
 		}
@@ -43,6 +47,8 @@ bool PlayerCharacter::update() {
 
 void PlayerCharacter::draw() const {
 }
+
+
 
 /*!
 @brief キャラクターのHPを設定
@@ -76,6 +82,10 @@ void PlayerCharacter::setMyTurn(int Number) {
 	myTurn = Number;
 }
 
+void PlayerCharacter::setInstrumentNumber(int Number) {
+	myInstrument->setMyInstrumentNumber(Number);
+}
+
 /*!
 @brief 敵のインスタンスを取得
 @param charNum 何体目?
@@ -103,6 +113,9 @@ void PlayerCharacter::setEnemyInstance(int enemyNum, Enemy* enemyInstance) {
 	}
 }
 
+void PlayerCharacter::setCharacterId(int Number) {
+	characterID = Number;
+}
 
 /*!
 @brief キャラクターの名前を取得

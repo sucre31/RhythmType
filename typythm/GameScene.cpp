@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include <Dxlib.h>
+#include "GameManager.h"
 
 using namespace std;
 
@@ -42,6 +43,7 @@ void GameScene::update() {
 	_statusWindowB->update();
 	_statusWindowC->update();
 	_statusWindowD->update();
+	GameManager::getIns()->proceedTurn();
 	_backImage->update();
 }
 
@@ -91,7 +93,10 @@ void GameScene::initCharacter() {
 	playerA->setName(0, 41);
 	playerA->setName(1, 82);
 	playerA->setName(2, 5);
+	playerA->setInstrumentNumber(0);
+	playerA->setCharacterId(0);
 	playerA->setMyTurn(0);
+	playerA->setCharacterId(0);
 	playerB->setHP(160);
 	playerB->setPP(10);
 	playerB->setName(0, 7);
@@ -99,6 +104,8 @@ void GameScene::initCharacter() {
 	playerB->setName(2, 19);
 	playerB->setName(3, 40);
 	playerB->setMyTurn(3);
+	playerB->setInstrumentNumber(1);
+	playerB->setCharacterId(1);
 	playerC->setHP(250);
 	playerC->setPP(70);
 	playerC->setName(0, 60);
@@ -106,12 +113,16 @@ void GameScene::initCharacter() {
 	playerC->setName(2, 15);
 	playerC->setName(3, 89);
 	playerC->setMyTurn(1);
+	playerC->setInstrumentNumber(2);
+	playerC->setCharacterId(2);
 	playerD->setHP(150);
 	playerD->setPP(0);
 	playerD->setName(0, 69);
 	playerD->setName(1, 21);
 	playerD->setName(2, 89);
 	playerD->setMyTurn(2);
+	playerD->setInstrumentNumber(3);
+	playerD->setCharacterId(3);
 }
 
 void GameScene::setEnemyInstancetToCharacter() {

@@ -23,10 +23,12 @@ bool StatusWindow::update() {
 	if (frameCount % 3 != 0) {
 		calcPoint();
 	}
+	
 	return true;
 }
 
 void StatusWindow::draw() const {
+	if (playerCharacter->getIsActive()) DrawGraph(22 + myX, 109 + myY, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE);
 	DrawGraph(0 + myX, 125 + myY, Image::getIns()->getWindowImage(), TRUE);
 	drawHP();
 	drawName();

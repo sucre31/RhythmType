@@ -13,8 +13,10 @@ public:
 	int getBackImage() const { return backImage; }
 	int getWindowImage() const { return windowImage; }
 	int getBeltImage() const { return beltImage; }
+	int getBeltImage2() const { return beltImage2; }
 	int getScreenHandle() const { return screenHandle; }
 	int getEnemyBattyImage() const { return MrBattyImage;  }
+	int getCharacterBattleImage(int characterNumber) const;
 	const int* getDrumroll() const { return drumroll; }
 	const int* getCharacterHiragana() const { return characterHiragana; }
 	const int* getCharacterKatakana() const { return characterKatakana; }
@@ -32,6 +34,7 @@ private:
 	int backImage;
 	int windowImage;
 	int beltImage;
+	int beltImage2;
 	int drumroll[80];
 	int characterHiragana[90];
 	int characterKatakana[90];
@@ -39,5 +42,8 @@ private:
 	int backgroundsA[14];
 	int MrBattyImage;
 	int LucasBattleImage;
+	int BoneyBattleImage;
+	int KumatoraBattleImage;
+	int DusterBattleImage;
 };
 

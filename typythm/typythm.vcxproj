@@ -163,6 +163,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Instrument.cpp" />
     <ClCompile Include="IOnSceneChangedListener.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Looper.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Instrument.h" />
     <ClInclude Include="IOnSceneChangedListener.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Looper.h" />

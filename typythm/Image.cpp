@@ -10,14 +10,32 @@ Image::Image()
     SetTransColor(50, 78, 91);
     backImage = myLoadGraph("Assets/Sprites/backImage.png");
     windowImage = myLoadGraph("Assets/Sprites/window.png");
-    beltImage = myLoadGraph("Assets/Sprites/belt2.png");
+    beltImage = myLoadGraph("Assets/Sprites/belt.png");
+    beltImage2 = myLoadGraph("Assets/Sprites/belt2.png");
     MrBattyImage = myLoadGraph("Assets/Sprites/Enemy/batty.png");
     LucasBattleImage = myLoadGraph("Assets/Sprites/Lucas/LucasBattle.png");
+    BoneyBattleImage = myLoadGraph("Assets/Sprites/Boney/BoneyBattle.png");
+    KumatoraBattleImage = myLoadGraph("Assets/Sprites/Kumatora/KumatoraBattle.png");
+    DusterBattleImage = myLoadGraph("Assets/Sprites/Duster/DusterBattle.png");
     myLoadDivGraph("Assets/Sprites/status.png", 80, 10, 8, 8, 8, drumroll);
     myLoadDivGraph("Assets/Sprites/hiragana.png", 90, 10, 9, 7, 7, characterHiragana);
     myLoadDivGraph("Assets/Sprites/katakana.png", 90, 10, 9, 7, 7, characterKatakana);
     myLoadDivGraph("Assets/Sprites/alphaA.png", 90, 10, 9, 7, 7, characterAlphaA);
     myLoadDivGraph("Assets/Sprites/backgroundsA.png", 14, 4, 4, 256, 256, backgroundsA);
+}
+
+
+int Image::getCharacterBattleImage(int characterNumber) const{
+    switch (characterNumber) {
+    case 0:
+        return LucasBattleImage;
+    case 1:
+        return KumatoraBattleImage;
+    case 2:
+        return DusterBattleImage;
+    case 3:
+        return BoneyBattleImage;
+    }
 }
 
 /*!

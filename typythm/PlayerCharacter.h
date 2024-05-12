@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Enemy.h"
+#include "Instrument.h"
 
 class PlayerCharacter : public Character
 {
@@ -14,14 +15,19 @@ public:
 	void setName(int charNum, int charSpriteNum);
 	void setMyTurn(int Number);
 	void setEnemyInstance(int enemyNum, Enemy* enemyInstance);
+	void setCharacterId(int Number);
+	void setInstrumentNumber(int Number);
 	int getName(int charNum) const;
 	int getHP() const;
 	int getPP() const;
 	int getNameLength() const;
+	int getCharacterID() const { return characterID; }
+	bool getIsActive() const { return isActive; }
 private:
 	void playMainSoundNumberMem(int numberOfSound);
 	void playSubSoundNumberMem(int numberOfSound);
 	void reverseSub();
+	bool isActive;
 	int myName[6];
 	int myHP;
 	int myPP;
@@ -29,10 +35,12 @@ private:
 	int nameLength;
 	int mainSoundNumber;
 	int subSoundNumber;
+	int characterID;
 	Enemy* enemyA;
 	Enemy* enemyB;
 	Enemy* enemyC;
 	Enemy* enemyD;
 	Enemy* enemyE;
+	Instrument* myInstrument;
 };
 
