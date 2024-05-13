@@ -13,7 +13,10 @@ private:
 	int enemyID;
 	int HP;
 	int myX, myY;
+	int BeatedMoveX;
 	int count;
+	int frameFromBeatTime;
 	bool reverseFlag;
+	bool isBeated;
 };
 

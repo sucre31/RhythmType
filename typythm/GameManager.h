@@ -10,6 +10,7 @@ public:
 	void minusTurn() { returnTurnFlag = true; }		//Šî–{Žg‚í‚È‚¢
 	int getTurn() { return TurnNum; };
 	void proceedTurn();
+	void initBattle() { TurnNum = 0; }
 private:
 	bool nextTurnFlag;
 	bool returnTurnFlag;

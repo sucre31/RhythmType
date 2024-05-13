@@ -28,7 +28,7 @@ bool StatusWindow::update() {
 }
 
 void StatusWindow::draw() const {
-	if (playerCharacter->getIsActive()) DrawGraph(22 + myX, 109 + myY, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE);
+	if (playerCharacter->getIsActive()) DrawRotaGraph(29 + myX, 117 + myY, 1.0, 0.0, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE, playerCharacter->getReverseFlag());		//キャラクターの描画
 	DrawGraph(0 + myX, 125 + myY, Image::getIns()->getWindowImage(), TRUE);
 	drawHP();
 	drawName();

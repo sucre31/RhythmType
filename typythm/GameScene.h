@@ -19,7 +19,7 @@ public:
 	void draw() const override;
 
 private:
-	int _level;
+	int musicNumber;
 	void initWindow();
 	void setEnemyInstancetToCharacter();
 	void initCharacter();

@@ -1,6 +1,9 @@
 #include "GameScene.h"
 #include <Dxlib.h>
 #include "GameManager.h"
+#include "Sound.h"
+#include "Pad.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -8,7 +11,7 @@ const char* GameScene::ParameterTagStage = "ParameterTagStage";
 const char* GameScene::ParameterTagLevel = "ParameterTagLevel";
 
 GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) : AbstractScene(impl, parameter) {
-	_level = parameter.get(ParameterTagLevel);
+	musicNumber = parameter.get(ParameterTagLevel);
 	_statusWindowA = make_shared<StatusWindow>();
 	_statusWindowB = make_shared<StatusWindow>();
 	_statusWindowC = make_shared<StatusWindow>();
@@ -27,6 +30,7 @@ GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) 
 	initCharacter();
 	setEnemyInstancetToCharacter();
 	initWindow();
+	PlaySoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber], DX_PLAYTYPE_BACK);
 }
 
 void GameScene::update() {
@@ -45,6 +49,13 @@ void GameScene::update() {
 	_statusWindowD->update();
 	GameManager::getIns()->proceedTurn();
 	_backImage->update();
+	if (Pad::getIns()->get(ePad::start) == 1) {
+		Parameter parameter;
+		const bool stackClear = true;
+		StopSoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber]);
+		GameManager::getIns()->initBattle();
+		_implSceneChanged->onSceneChanged(eScene::Title, parameter, stackClear);
+	}
 }
 
 void GameScene::draw() const {

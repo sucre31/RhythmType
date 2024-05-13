@@ -9,24 +9,30 @@ PlayerCharacter::PlayerCharacter() {
 	mainSoundNumber = 0;
 	subSoundNumber = 0;
 	myInstrument = new Instrument();
+	reverseFlag = FALSE;
 }
 
 bool PlayerCharacter::update() {
 	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
 		isActive = true;
-		if (Pad::getIns()->get(ePad::up) == 1) {
+		if (Pad::getIns()->get(ePad::up) >= 1) {
 			myHP++;
 		}
-		if (Pad::getIns()->get(ePad::down) == 1) {
+		if (Pad::getIns()->get(ePad::down) >= 1) {
 			myHP--;
 		}
 		if (Pad::getIns()->get(ePad::A) == 1) {
 			playMainSoundNumberMem(mainSoundNumber);
+			setPP(mainSoundNumber);
+			PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+			reverseCharacter();
 			enemyC->reverse();
 			mainSoundNumber++;
 		}
 		if (Pad::getIns()->get(ePad::left) == 1) {
 			playSubSoundNumberMem(subSoundNumber);
+			setPP(subSoundNumber);
+			reverseCharacter();
 			reverseSub();
 			subSoundNumber++;
 		}
@@ -48,6 +54,9 @@ bool PlayerCharacter::update() {
 void PlayerCharacter::draw() const {
 }
 
+void PlayerCharacter::reverseCharacter() {
+	reverseFlag = !reverseFlag;
+}
 
 
 /*!
@@ -156,135 +165,11 @@ int PlayerCharacter::getPP() const {
 @brief ƒƒCƒ“‚Ì‰¹‚ð‡”Ô‚É•À‚×‚é
 */
 void PlayerCharacter::playMainSoundNumberMem(int numberOfSound) {
-	numberOfSound = numberOfSound % 12;
-	switch (numberOfSound) {
-	case 0:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 1:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[1], DX_PLAYTYPE_BACK);
-		break;
-	case 2:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[2], DX_PLAYTYPE_BACK);
-		break;
-	case 3:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 4:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[1], DX_PLAYTYPE_BACK);
-		break;
-	case 5:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[2], DX_PLAYTYPE_BACK);
-		break;
-	case 6:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[3], DX_PLAYTYPE_BACK);
-		break;
-	case 7:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[4], DX_PLAYTYPE_BACK);
-		break;
-	case 8:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[5], DX_PLAYTYPE_BACK);
-		break;
-	case 9:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[6], DX_PLAYTYPE_BACK);
-		break;
-	case 10:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 11:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[7], DX_PLAYTYPE_BACK);
-		break;
-	}
+	myInstrument->playMainInstrument(numberOfSound);
 }
 
 void PlayerCharacter::playSubSoundNumberMem(int numberOfSound) {
-	numberOfSound = numberOfSound % 28;
-	switch (numberOfSound) {
-	case 0:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[8], DX_PLAYTYPE_BACK);
-		break;
-	case 1:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[9], DX_PLAYTYPE_BACK);
-		break;
-	case 2:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[10], DX_PLAYTYPE_BACK);
-		break;
-	case 3:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[11], DX_PLAYTYPE_BACK);
-		break;
-	case 4:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[12], DX_PLAYTYPE_BACK);
-		break;
-	case 5:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[13], DX_PLAYTYPE_BACK);
-		break;
-	case 6:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[14], DX_PLAYTYPE_BACK);
-		break;
-	case 7:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[15], DX_PLAYTYPE_BACK);
-		break;
-	case 8:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[16], DX_PLAYTYPE_BACK);
-		break;
-	case 9:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[17], DX_PLAYTYPE_BACK);
-		break;
-	case 10:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[18], DX_PLAYTYPE_BACK);
-		break;
-	case 11:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[19], DX_PLAYTYPE_BACK);
-		break;
-	case 12:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[20], DX_PLAYTYPE_BACK);
-		break;
-	case 13:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[21], DX_PLAYTYPE_BACK);
-		break;
-	case 14:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[22], DX_PLAYTYPE_BACK);
-		break;
-	case 15:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[23], DX_PLAYTYPE_BACK);
-		break;
-	case 16:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[8], DX_PLAYTYPE_BACK);
-		break;
-	case 17:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[9], DX_PLAYTYPE_BACK);
-		break;
-	case 18:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[10], DX_PLAYTYPE_BACK);
-		break;
-	case 19:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[11], DX_PLAYTYPE_BACK);
-		break;
-	case 20:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[12], DX_PLAYTYPE_BACK);
-		break;
-	case 21:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[13], DX_PLAYTYPE_BACK);
-		break;
-	case 22:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[14], DX_PLAYTYPE_BACK);
-		break;
-	case 23:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[15], DX_PLAYTYPE_BACK);
-		break;
-	case 24:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[16], DX_PLAYTYPE_BACK);
-		break;
-	case 25:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[17], DX_PLAYTYPE_BACK);
-		break;
-	case 26:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[18], DX_PLAYTYPE_BACK);
-		break;
-	case 27:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[19], DX_PLAYTYPE_BACK);
-		break;
-	}
+	myInstrument->playSubInstrument(numberOfSound);
 }
 
 void PlayerCharacter::reverseSub() {
