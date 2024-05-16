@@ -21,6 +21,7 @@ Image::Image()
     myLoadDivGraph("Assets/Sprites/hiragana.png", 90, 10, 9, 7, 7, characterHiragana);
     myLoadDivGraph("Assets/Sprites/katakana.png", 90, 10, 9, 7, 7, characterKatakana);
     myLoadDivGraph("Assets/Sprites/alphaA.png", 90, 10, 9, 7, 7, characterAlphaA);
+    myLoadDivGraph("Assets/Sprites/Battle/Number.png", 30, 10, 3, 16, 16, battleCharacter);
     myLoadDivGraph("Assets/Sprites/backgroundsA.png", 14, 4, 4, 256, 256, backgroundsA);
 }
 

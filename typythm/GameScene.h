@@ -5,6 +5,7 @@
 #include "StatusWindow.h"
 #include "BackImage.h"
 #include "Enemy.h"
+#include "BeatManager.h"
 
 class GameScene : public AbstractScene
 {
@@ -37,6 +38,6 @@ private:
 	std::shared_ptr<StatusWindow> _statusWindowC;
 	std::shared_ptr<StatusWindow> _statusWindowD;
 	std::shared_ptr<BackImage> _backImage;
-
+	BeatManager* beatManager;
 };
 

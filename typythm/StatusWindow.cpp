@@ -150,14 +150,14 @@ int StatusWindow::getNameToSprite(int charNum) const {
 */
 int StatusWindow::getDumrollNum(int drumNum) const {
 	int drumSpriteNum = 0;
-	switch (drumNum) {			//HP→MP 3桁目から0スタートで
+	switch (drumNum) {			//HP→PP 3桁目から0スタートで
 	case 0:
 		if ((((hp / 80) * 8) % 80 ) >= 72 && (hp % 80) >= 72) {
 			drumSpriteNum = (((hp / 800) * 8) % 80) + (hp % 8);
 			return drumSpriteNum;
 		}
 		else {
-			drumSpriteNum = (hp / 800) * 8;
+			drumSpriteNum = ((hp / 800) * 8) % 80;
 		}
 		return drumSpriteNum;
 		break;
@@ -176,7 +176,13 @@ int StatusWindow::getDumrollNum(int drumNum) const {
 		return drumSpriteNum;
 		break;
 	case 3:
-		drumSpriteNum = (pp / 800) * 8;
+		if ((((pp / 80) * 8) % 80) >= 72 && (pp % 80) >= 72) {
+			drumSpriteNum = (((pp / 800) * 8) % 80) + (pp % 8);
+			return drumSpriteNum;
+		}
+		else {
+			drumSpriteNum = ((pp / 800) * 8) % 80;
+		}
 		return drumSpriteNum;
 		break;
 	case 4:

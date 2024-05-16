@@ -2,7 +2,7 @@
 #include <Dxlib.h>
 
 Sound::Sound() {
-    BackgroundMusic[0] = myLoadSoundMem("Assets/Sounds/Music/TheSnippet.wav");
+    BackgroundMusic[0] = myLoadSoundMem("Assets/Sounds/Music/Original.wav");
     BackgroundMusic[1] = myLoadSoundMem("Assets/Sounds/Music/Drum.wav");
     lucasBattleSounds[0] = myLoadSoundMem("Assets/Sounds/Lucas/Snippet1.wav");
     lucasBattleSounds[1] = myLoadSoundMem("Assets/Sounds/Lucas/Snippet2.wav");
@@ -28,20 +28,20 @@ Sound::Sound() {
     lucasBattleSounds[21] = myLoadSoundMem("Assets/Sounds/Lucas/SnippetB4.wav");
     lucasBattleSounds[22] = myLoadSoundMem("Assets/Sounds/Lucas/SnippetC4.wav");
     lucasBattleSounds[23] = myLoadSoundMem("Assets/Sounds/Lucas/SnippetD4.wav");
-    kumatoraBattleSounds[0] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar0.wav");
-    kumatoraBattleSounds[1] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar1.wav");
-    kumatoraBattleSounds[2] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar2.wav");
-    kumatoraBattleSounds[3] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar3.wav");
-    kumatoraBattleSounds[4] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar4.wav");
-    kumatoraBattleSounds[5] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar5.wav");
-    kumatoraBattleSounds[6] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar6.wav");
-    kumatoraBattleSounds[7] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar7.wav");
-    kumatoraBattleSounds[8] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar8.wav");
-    kumatoraBattleSounds[9] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar9.wav");
-    kumatoraBattleSounds[10] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar10.wav");
-    kumatoraBattleSounds[11] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar11.wav");
-    kumatoraBattleSounds[12] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar12.wav");
-    kumatoraBattleSounds[13] = myLoadSoundMem("Assets/Sounds/Kumatora/KumatoraGuitar13.wav");
+    kumatoraBattleSounds[0] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar0.wav");
+    kumatoraBattleSounds[1] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar1.wav");
+    kumatoraBattleSounds[2] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar2.wav");
+    kumatoraBattleSounds[3] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar3.wav");
+    kumatoraBattleSounds[4] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar4.wav");
+    kumatoraBattleSounds[5] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar5.wav");
+    kumatoraBattleSounds[6] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar6.wav");
+    kumatoraBattleSounds[7] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar7.wav");
+    kumatoraBattleSounds[8] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar8.wav");
+    kumatoraBattleSounds[9] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar9.wav");
+    kumatoraBattleSounds[10] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar10.wav");
+    kumatoraBattleSounds[11] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar11.wav");
+    kumatoraBattleSounds[12] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar12.wav");
+    kumatoraBattleSounds[13] = myLoadSoundMem("Assets/Sounds/Kumatora/Guitar13.wav");
     dusterBattleSounds[0] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass0.wav");
     dusterBattleSounds[1] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass1.wav");
     dusterBattleSounds[2] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass2.wav");
@@ -61,6 +61,7 @@ Sound::Sound() {
     boneyBattleSounds[6] = myLoadSoundMem("Assets/Sounds/Boney/BoneyBark6.wav");
     boneyBattleSounds[7] = myLoadSoundMem("Assets/Sounds/Boney/BoneyBark7.wav");
     BattleSE[0] = myLoadSoundMem("Assets/Sounds/Battle/Bash.wav");
+    BattleSE[1] = myLoadSoundMem("Assets/Sounds/Battle/AllyTurn.wav");
 }
 
 /*!

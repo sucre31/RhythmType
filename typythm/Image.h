@@ -22,6 +22,7 @@ public:
 	const int* getCharacterKatakana() const { return characterKatakana; }
 	const int* getCharacterAlphaA() const { return characterAlphaA; }
 	const int* getBackgroundsA() const { return backgroundsA; }
+	const int* getBattleCharacter() const{ return battleCharacter; }
 	//int getDrumroll() const { return _drumroll[0]; }
 
 private:
@@ -39,6 +40,7 @@ private:
 	int characterHiragana[90];
 	int characterKatakana[90];
 	int characterAlphaA[90];
+	int battleCharacter[30];
 	int backgroundsA[14];
 	int MrBattyImage;
 	int LucasBattleImage;

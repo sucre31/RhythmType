@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "DamageBeat.h"
 class Enemy : public GameObject
 {
 public:
@@ -8,7 +9,7 @@ public:
 	~Enemy() = default;
 	bool update() override;
 	void draw() const override;
-	void reverse();
+	void getDamage(int valueOfDamage);
 private:
 	int enemyID;
 	int HP;
@@ -18,5 +19,6 @@ private:
 	int frameFromBeatTime;
 	bool reverseFlag;
 	bool isBeated;
+	DamageBeat* damageBeat;
 };
 

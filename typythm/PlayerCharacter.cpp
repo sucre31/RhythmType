@@ -9,7 +9,10 @@ PlayerCharacter::PlayerCharacter() {
 	mainSoundNumber = 0;
 	subSoundNumber = 0;
 	myInstrument = new Instrument();
+	//myInstrument->setBeatManager(beatManager);
 	reverseFlag = FALSE;
+	alwaysActive = false;
+	damage = 0;
 }
 
 bool PlayerCharacter::update() {
@@ -24,9 +27,9 @@ bool PlayerCharacter::update() {
 		if (Pad::getIns()->get(ePad::A) == 1) {
 			playMainSoundNumberMem(mainSoundNumber);
 			setPP(mainSoundNumber);
-			PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+			//PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
 			reverseCharacter();
-			enemyC->reverse();
+			enemyC->getDamage(damage);
 			mainSoundNumber++;
 		}
 		if (Pad::getIns()->get(ePad::left) == 1) {
@@ -38,7 +41,14 @@ bool PlayerCharacter::update() {
 		}
 		if (Pad::getIns()->get(ePad::R) == 1) {
 			GameManager::getIns()->nextTurn();
+			PlaySoundMem(Sound::getIns()->getBattleSE()[1], DX_PLAYTYPE_BACK);
 			isActive = false;
+		}
+		if (Pad::getIns()->get(ePad::change) == 1) {
+			alwaysActive = !alwaysActive;
+		}
+		if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
+			myInstrument->playWithStep(beatManager->getNumberOfStep());
 		}
 		//if (Pad::getIns()->get(ePad::L) == 1) {
 		//	GameManager::getIns()->minusTurn();
@@ -47,6 +57,9 @@ bool PlayerCharacter::update() {
 		if (myHP < 0) {
 			myHP = 0;
 		}
+	}
+	else if (alwaysActive) {
+		if(beatManager->isStepChanged()) myInstrument->playWithStep(beatManager->getNumberOfStep());
 	}
 	return true;
 }
@@ -175,16 +188,16 @@ void PlayerCharacter::playSubSoundNumberMem(int numberOfSound) {
 void PlayerCharacter::reverseSub() {
 	switch (subSoundNumber % 4) {
 	case 0:
-		enemyA->reverse();
+		enemyA->getDamage(damage);
 		break;
 	case 1:
-		enemyB->reverse();
+		enemyB->getDamage(damage);
 		break;
 	case 2:
-		enemyD->reverse();
+		enemyD->getDamage(damage);
 		break;
 	case 3:
-		enemyE->reverse();
+		enemyE->getDamage(damage);
 		break;
 	}
 }

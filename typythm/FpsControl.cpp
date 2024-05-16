@@ -23,7 +23,7 @@ bool FpsControl::Update(){
 }
 
 void FpsControl::Draw(){
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mFps);
+	//DrawFormatString(280, 0, GetColor(255, 255, 255), "%.1f", mFps);
 }
 
 void FpsControl::Wait() {

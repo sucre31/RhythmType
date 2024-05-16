@@ -5,8 +5,8 @@ class FpsControl {
 	int mStartTime;         //測定開始時刻
 	int mCount;             //カウンタ
 	float mFps;             //fps
-	const int N = 60;//平均を取るサンプル数
-	const int FPS = 60;	//設定したFPS
+	const int N = 120;//平均を取るサンプル数
+	const int FPS = 66;	//設定したFPS
 
 public:
 	FpsControl() = default;

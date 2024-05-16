@@ -31,8 +31,9 @@ bool Looper::loop() const
     Pad::getIns()->update();        //ジョイパッドの更新
     _sceneStack.top()->update();    //スタックのトップのシーンを更新
     _sceneStack.top()->draw();      //スタックのトップのシーンを描画
-    _fps->Draw();
     _fps->Update();
+    _fps->Draw();
+    _fps->Wait();
 
     //最後に画面の倍率に合わせて描画
     SetDrawScreen(DX_SCREEN_BACK);
