@@ -280,7 +280,12 @@ void Instrument::playSubInstrument(int NumberOfTone) {
 
 }
 
-void Instrument::playWithStep(int StepNumber) {
+/*!
+@brief ステップに合わせて音を鳴らす，もしくはステップに音があるかを判定
+@param StepNuber ステップ数
+@param checkMode 0:鳴らす	1:メインに音があるか	2:サブに音があるか
+*/
+bool Instrument::playWithStep(int StepNumber, int checkMode) {
 	StepNumber = StepNumber % 128;
 	int mainNum = -1;
 	int subNum = -1;
@@ -394,8 +399,8 @@ void Instrument::playWithStep(int StepNumber) {
 			subNum = 27;
 			break;
 		}
-		if (mainNum != -1) playMainInstrument(mainNum);
-		if (subNum != -1) playSubInstrument(subNum);
+		if (mainNum != -1 && checkMode == 0) playMainInstrument(mainNum);
+		if (subNum != -1 && checkMode == 0) playSubInstrument(subNum);
 		break;
 	case 1:
 		switch (StepNumber % 16) {
@@ -418,13 +423,13 @@ void Instrument::playWithStep(int StepNumber) {
 			mainNum = 5 + StepNumber / 16 * 6;
 			break;
 		}
-		if (mainNum != -1) playMainInstrument(mainNum);
-		if (subNum != -1) playSubInstrument(subNum);
+		if (mainNum != -1 && checkMode == 0) playMainInstrument(mainNum);
+		if (subNum != -1 && checkMode == 0) playSubInstrument(subNum);
 		break;
 	case 2:
 		if(StepNumber % 2 == 0) mainNum = StepNumber / 2;
-		if (mainNum != -1) playMainInstrument(mainNum);
-		if (subNum != -1) playSubInstrument(subNum);
+		if (mainNum != -1 && checkMode == 0) playMainInstrument(mainNum);
+		if (subNum != -1 && checkMode == 0) playSubInstrument(subNum);
 		break;
 	case 3:
 		switch (StepNumber) {
@@ -468,8 +473,25 @@ void Instrument::playWithStep(int StepNumber) {
 			mainNum = 12;
 			break;
 		}
-		if (mainNum != -1) playMainInstrument(mainNum);
-		if (subNum != -1) playSubInstrument(subNum);
+		if (mainNum != -1 && checkMode == 0) playMainInstrument(mainNum);
+		if (subNum != -1 && checkMode == 0) playSubInstrument(subNum);
 		break;
 	}
+	if (checkMode == 1) {
+		if (mainNum != -1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if (checkMode == 2){
+		if (subNum != -1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	return false;
 }

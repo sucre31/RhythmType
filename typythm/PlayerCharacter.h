@@ -20,6 +20,8 @@ public:
 	void setCharacterId(int Number);
 	void setInstrumentNumber(int Number);
 	void reverseCharacter();
+	int scoreCheck();
+	int scoreCheckSub();
 	int getName(int charNum) const;
 	int getHP() const;
 	int getPP() const;

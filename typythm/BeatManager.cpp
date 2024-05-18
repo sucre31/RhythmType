@@ -9,11 +9,10 @@ BeatManager::BeatManager() {
 	deleyTime = (int)((60000 / bpm / 4) / 2);
 	targetTime = 0;
 	//activeNumberOfStep = 0;
-	nowScore = 0;
-	nowScore = -1;
 	timeOfLoopHead = 0;
 	stepChangeFlag = false;
 	numberOfStep = -1;
+	currentScore = 1;
 }
 
 bool BeatManager::update() {
@@ -41,7 +40,7 @@ void BeatManager::draw() const{
 	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", numberOfStep);
 	//DrawFormatString(100, 0, GetColor(255, 255, 255), "%f", (((nowTime - startTime) / 1000) / (15000 / bpm)));
 	//DrawFormatString(0, 10, GetColor(255, 255, 255), "%d", activeNumberOfStep);
-	//DrawFormatString(40, 0, GetColor(255, 255, 255), "%d", nowScore);
+	DrawFormatString(40, 0, GetColor(255, 255, 255), "%d", currentScore);
 }
 
 void BeatManager::startMusic(int musicNumber) {
@@ -50,11 +49,21 @@ void BeatManager::startMusic(int musicNumber) {
 	timeOfLoopHead = GetNowHiPerformanceCount();
 }
 
+/*!
+@brief　目的のステップと現在の時間との差から点数(ダメージ)を算出
+@param targetStep 判定するステップ
+*/
 int BeatManager::checkNowScore(int targetStep) {
-	targetStep = targetStep % 128;
-	targetTime = ((int)((60000 / bpm / 4) * targetStep) % (int)((60000 / bpm / 4) * 128));
-	if (abs(((nowTime - startTime) / 1000) - targetTime) < (deleyTime * 2)) {
-		return (int)abs(((nowTime - startTime) / 1000) - targetTime);
+	//targetStep = targetStep % 128;
+	//targetTime = ((int)((60000 / bpm / 4) * targetStep) % (int)((60000 / bpm / 4) * 128));
+	targetStep = targetStep;
+	targetTime = ((int)((60000 / bpm / 4) * targetStep) );
+	if (abs(((nowTime - startTime) / 1000) - targetTime) < (deleyTime * 4)) {
+		currentScore = 80 - (int)abs(((nowTime - startTime) / 1000) - targetTime) * 2;
+		if (currentScore < 0) currentScore = 1;
+		return currentScore;
 	}
+	currentScore = -1;
 	return -1;
 }
+

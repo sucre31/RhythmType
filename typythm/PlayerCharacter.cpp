@@ -18,6 +18,7 @@ PlayerCharacter::PlayerCharacter() {
 bool PlayerCharacter::update() {
 	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
 		isActive = true;
+		scoreCheck();
 		if (Pad::getIns()->get(ePad::up) >= 1) {
 			myHP++;
 		}
@@ -29,6 +30,8 @@ bool PlayerCharacter::update() {
 			setPP(mainSoundNumber);
 			//PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
 			reverseCharacter();
+			damage = scoreCheck();
+			if (damage == 80) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
 			enemyC->getDamage(damage);
 			mainSoundNumber++;
 		}
@@ -36,6 +39,7 @@ bool PlayerCharacter::update() {
 			playSubSoundNumberMem(subSoundNumber);
 			setPP(subSoundNumber);
 			reverseCharacter();
+			damage = scoreCheckSub();
 			reverseSub();
 			subSoundNumber++;
 		}
@@ -48,7 +52,8 @@ bool PlayerCharacter::update() {
 			alwaysActive = !alwaysActive;
 		}
 		if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
-			myInstrument->playWithStep(beatManager->getNumberOfStep());
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
 		}
 		//if (Pad::getIns()->get(ePad::L) == 1) {
 		//	GameManager::getIns()->minusTurn();
@@ -59,7 +64,7 @@ bool PlayerCharacter::update() {
 		}
 	}
 	else if (alwaysActive) {
-		if(beatManager->isStepChanged()) myInstrument->playWithStep(beatManager->getNumberOfStep());
+		if(beatManager->isStepChanged()) myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
 	}
 	return true;
 }
@@ -69,6 +74,54 @@ void PlayerCharacter::draw() const {
 
 void PlayerCharacter::reverseCharacter() {
 	reverseFlag = !reverseFlag;
+}
+
+/*!
+@brief 現在のターゲットになるステップ数を計算したうえでポイントをもらう
+*/
+int PlayerCharacter::scoreCheck() {
+	int targetStep;
+	int addNumber = 0, addValue = 0;
+	bool isTargetDecide = false;
+	targetStep = beatManager->getNumberOfStep();
+	isTargetDecide = myInstrument->playWithStep(targetStep, 1);
+	while (!isTargetDecide) {
+		if (addNumber % 2 == 0) {
+			addValue = (int)(addNumber / 2 + 1);
+		}
+		else {
+			addValue = - (int)(addNumber / 2 + 1);
+		}
+		isTargetDecide = myInstrument->playWithStep(targetStep + addValue, 1);
+		addNumber++;
+		if (addNumber == 128) break;
+	}
+
+	return beatManager->checkNowScore(targetStep + addValue);
+}
+
+/*!
+@brief 現在のターゲットになるステップ数を計算したうえでポイントをもらう(サブ音源用)
+*/
+int PlayerCharacter::scoreCheckSub() {
+	int targetStep;
+	int addNumber = 0, addValue = 0;
+	bool isTargetDecide = false;
+	targetStep = beatManager->getNumberOfStep();
+	isTargetDecide = myInstrument->playWithStep(targetStep, 2);
+	while (!isTargetDecide) {
+		if (addNumber % 2 == 0) {
+			addValue = (int)(addNumber / 2 + 1);
+		}
+		else {
+			addValue = -(int)(addNumber / 2 + 1);
+		}
+		isTargetDecide = myInstrument->playWithStep(targetStep + addValue, 2);
+		addNumber++;
+		if (addNumber == 128) break;
+	}
+
+	return beatManager->checkNowScore(targetStep + addValue);
 }
 
 

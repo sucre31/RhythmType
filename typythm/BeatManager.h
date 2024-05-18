@@ -26,5 +26,5 @@ private:
 	int barTime;
 	//double timeOfOneStep;
 	int deleyTime;
-	int nowScore;
+	int currentScore;
 };

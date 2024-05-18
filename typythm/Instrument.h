@@ -9,7 +9,7 @@ public:
 	void playMainInstrument(int NumberOfTone);
 	void playSubInstrument(int NumberOfTone);
 	void setMyInstrumentNumber(int Number) { myInstrumentNumber = Number; }
-	void playWithStep(int stepNumber);
+	bool playWithStep(int stepNumber, int checkMode);
 	//void setBeatManager(BeatManager* beatManagerInstance) { beatManager = beatManagerInstance; }
 private:
 	int myInstrumentNumber;
