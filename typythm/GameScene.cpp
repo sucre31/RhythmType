@@ -11,11 +11,16 @@ const char* GameScene::ParameterTagStage = "ParameterTagStage";
 const char* GameScene::ParameterTagLevel = "ParameterTagLevel";
 
 GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) : AbstractScene(impl, parameter) {
+	ChangeFont("Mother3Message");
+	SetFontSpace(1);
+	SetFontSize(9);
+	SetFontThickness(1);
 	musicNumber = parameter.get(ParameterTagLevel);
 	_statusWindowA = make_shared<StatusWindow>();
 	_statusWindowB = make_shared<StatusWindow>();
 	_statusWindowC = make_shared<StatusWindow>();
 	_statusWindowD = make_shared<StatusWindow>();
+	messageWindow = make_shared<MessageWindow>();
 	playerA = new PlayerCharacter();
 	playerB = new PlayerCharacter();
 	playerC = new PlayerCharacter();
@@ -36,6 +41,7 @@ GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) 
 
 void GameScene::update() {
 	beatManager->update();
+	GameManager::getIns()->proceedTurn();
 	playerA->update();
 	playerB->update();
 	playerC->update();
@@ -49,7 +55,7 @@ void GameScene::update() {
 	_statusWindowB->update();
 	_statusWindowC->update();
 	_statusWindowD->update();
-	GameManager::getIns()->proceedTurn();
+	messageWindow->update();
 	_backImage->update();
 	if (Pad::getIns()->get(ePad::start) == 1) {
 		Parameter parameter;
@@ -71,11 +77,13 @@ void GameScene::draw() const {
 	_statusWindowB->draw();
 	_statusWindowC->draw();
 	_statusWindowD->draw();
+	messageWindow->draw();
 	enemyA->draw();
 	enemyB->draw();
 	enemyC->draw();
 	enemyD->draw();
 	enemyE->draw();
+
 }
 
 void GameScene::initWindow() {

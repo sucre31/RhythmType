@@ -16,5 +16,6 @@ public:
 	enum eMusic {
 		BGM,
 		Drum,
+		NoBGM
 	};
 };

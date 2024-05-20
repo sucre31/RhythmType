@@ -350,12 +350,12 @@ bool Instrument::playWithStep(int StepNumber, int checkMode) {
 		case 56:
 			mainNum = 5;
 			break;
-		case 60:
-			mainNum = 6;
-			break;
-		case 62:
-			mainNum = 7;
-			break;
+		//case 60:
+		//	mainNum = 6;
+		//	break;
+		//case 62:
+		//	mainNum = 7;
+		//	break;
 		case 64:
 			mainNum = 8;
 			subNum = 16;

@@ -17,6 +17,7 @@ public:
 	int getScreenHandle() const { return screenHandle; }
 	int getEnemyBattyImage() const { return MrBattyImage;  }
 	int getCharacterBattleImage(int characterNumber) const;
+	int getMessageWindow() const { return MessageWindow; }
 	const int* getDrumroll() const { return drumroll; }
 	const int* getCharacterHiragana() const { return characterHiragana; }
 	const int* getCharacterKatakana() const { return characterKatakana; }
@@ -47,5 +48,6 @@ private:
 	int BoneyBattleImage;
 	int KumatoraBattleImage;
 	int DusterBattleImage;
+	int MessageWindow;
 };
 

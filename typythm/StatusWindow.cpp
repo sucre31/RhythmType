@@ -11,7 +11,7 @@ StatusWindow::StatusWindow() {
 	hp = 120;
 	pp = 30;
 	myX = 0;
-	myY = 20;
+	myY = 23;
 	myNameLength = 0;
 	frameCount = 0;
 }

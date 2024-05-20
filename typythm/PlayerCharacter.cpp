@@ -34,6 +34,7 @@ bool PlayerCharacter::update() {
 			if (damage == 80) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
 			enemyC->getDamage(damage);
 			mainSoundNumber++;
+			if (mainSoundNumber % 12 == 6 && characterID == 0) mainSoundNumber = 8;
 		}
 		if (Pad::getIns()->get(ePad::left) == 1) {
 			playSubSoundNumberMem(subSoundNumber);

@@ -172,12 +172,14 @@
     <ClCompile Include="Looper.cpp" />
     <ClCompile Include="Macro.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MessageWindow.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Parameter.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StatusWindow.cpp" />
+    <ClCompile Include="StringImage.cpp" />
     <ClCompile Include="SystemMain.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
@@ -202,12 +204,14 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Looper.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="MessageWindow.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="StatusWindow.h" />
+    <ClInclude Include="StringImage.h" />
     <ClInclude Include="SystemMain.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

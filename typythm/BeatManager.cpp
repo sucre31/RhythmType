@@ -40,11 +40,11 @@ void BeatManager::draw() const{
 	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", numberOfStep);
 	//DrawFormatString(100, 0, GetColor(255, 255, 255), "%f", (((nowTime - startTime) / 1000) / (15000 / bpm)));
 	//DrawFormatString(0, 10, GetColor(255, 255, 255), "%d", activeNumberOfStep);
-	DrawFormatString(40, 0, GetColor(255, 255, 255), "%d", currentScore);
+	DrawFormatString(40 + currentScore, 10, GetColor(255, 255, 255), "%d", currentScore);
 }
 
 void BeatManager::startMusic(int musicNumber) {
-	PlaySoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber], DX_PLAYTYPE_BACK);
+	if (musicNumber < 2) PlaySoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber], DX_PLAYTYPE_BACK);
 	startTime = GetNowHiPerformanceCount();
 	timeOfLoopHead = GetNowHiPerformanceCount();
 }
@@ -63,7 +63,7 @@ int BeatManager::checkNowScore(int targetStep) {
 		if (currentScore < 0) currentScore = 1;
 		return currentScore;
 	}
-	currentScore = -1;
+	currentScore = -30;
 	return -1;
 }
 

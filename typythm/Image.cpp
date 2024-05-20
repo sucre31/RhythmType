@@ -17,6 +17,7 @@ Image::Image()
     BoneyBattleImage = myLoadGraph("Assets/Sprites/Boney/BoneyBattle.png");
     KumatoraBattleImage = myLoadGraph("Assets/Sprites/Kumatora/KumatoraBattle.png");
     DusterBattleImage = myLoadGraph("Assets/Sprites/Duster/DusterBattle.png");
+    MessageWindow = myLoadGraph("Assets/Sprites/Battle/Message.png");
     myLoadDivGraph("Assets/Sprites/status.png", 80, 10, 8, 8, 8, drumroll);
     myLoadDivGraph("Assets/Sprites/hiragana.png", 90, 10, 9, 7, 7, characterHiragana);
     myLoadDivGraph("Assets/Sprites/katakana.png", 90, 10, 9, 7, 7, characterKatakana);
@@ -37,6 +38,7 @@ int Image::getCharacterBattleImage(int characterNumber) const{
     case 3:
         return BoneyBattleImage;
     }
+    return LucasBattleImage;
 }
 
 /*!
