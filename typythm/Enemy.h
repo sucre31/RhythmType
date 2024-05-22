@@ -10,6 +10,7 @@ public:
 	bool update() override;
 	void draw() const override;
 	void getDamage(int valueOfDamage);
+	bool getAlive() const { return alive; }
 private:
 	int enemyID;
 	int HP;
@@ -19,6 +20,8 @@ private:
 	int frameFromBeatTime;
 	bool reverseFlag;
 	bool isBeated;
+	bool alive;
+	int screen;
 	DamageBeat* damageBeat;
 };
 

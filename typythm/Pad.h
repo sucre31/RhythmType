@@ -4,7 +4,7 @@
 #include <array>
 
 enum ePad {
-	left, up, right, down, A, B, X, Y, L, R, start, change
+	down, left, right, up, A, B, Y, X, L, R, start, change
 };
 
 class Pad final : public Singleton<Pad> {
@@ -18,7 +18,7 @@ public:
 private:
     void merge();
 
-    const static int PAD_KEY_NUM = 16;
+    const static int PAD_KEY_NUM = 20;
     std::array<int, PAD_KEY_NUM> _idArray;  //どのボタンがどのボタンに割り当たっているかを示す
     std::array<int, PAD_KEY_NUM> _pad;      //16ボタンのpad入力状態格納
 

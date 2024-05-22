@@ -11,16 +11,13 @@ const char* GameScene::ParameterTagStage = "ParameterTagStage";
 const char* GameScene::ParameterTagLevel = "ParameterTagLevel";
 
 GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) : AbstractScene(impl, parameter) {
-	ChangeFont("Mother3Message");
-	SetFontSpace(1);
-	SetFontSize(9);
-	SetFontThickness(1);
+	
 	musicNumber = parameter.get(ParameterTagLevel);
 	_statusWindowA = make_shared<StatusWindow>();
 	_statusWindowB = make_shared<StatusWindow>();
 	_statusWindowC = make_shared<StatusWindow>();
 	_statusWindowD = make_shared<StatusWindow>();
-	messageWindow = make_shared<MessageWindow>();
+	messageWindow = new MessageWindow();
 	playerA = new PlayerCharacter();
 	playerB = new PlayerCharacter();
 	playerC = new PlayerCharacter();
@@ -119,6 +116,7 @@ void GameScene::initCharacter() {
 	playerA->setCharacterId(0);
 	playerA->setMyTurn(0);
 	playerA->setCharacterId(0);
+	playerA->setMessageWindow(messageWindow);
 	playerB->setHP(160);
 	playerB->setPP(0);
 	playerB->setName(0, 7);
@@ -128,6 +126,7 @@ void GameScene::initCharacter() {
 	playerB->setMyTurn(3);
 	playerB->setInstrumentNumber(1);
 	playerB->setCharacterId(1);
+	playerB->setMessageWindow(messageWindow);
 	playerC->setHP(250);
 	playerC->setPP(0);
 	playerC->setName(0, 60);
@@ -137,6 +136,7 @@ void GameScene::initCharacter() {
 	playerC->setMyTurn(1);
 	playerC->setInstrumentNumber(2);
 	playerC->setCharacterId(2);
+	playerC->setMessageWindow(messageWindow);
 	playerD->setHP(150);
 	playerD->setPP(0);
 	playerD->setName(0, 69);
@@ -145,6 +145,7 @@ void GameScene::initCharacter() {
 	playerD->setMyTurn(2);
 	playerD->setInstrumentNumber(3);
 	playerD->setCharacterId(3);
+	playerD->setMessageWindow(messageWindow);
 }
 
 void GameScene::setEnemyInstancetToCharacter() {

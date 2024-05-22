@@ -28,7 +28,9 @@ bool StatusWindow::update() {
 }
 
 void StatusWindow::draw() const {
-	if (playerCharacter->getIsActive()) DrawRotaGraph(29 + myX, 117 + myY, 1.0, 0.0, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE, playerCharacter->getReverseFlag());		//キャラクターの描画
+	if (playerCharacter->getIsActive()) {
+			DrawRotaGraph(29 + myX, 117 + myY, 1.0, 0.0, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE, playerCharacter->getReverseFlag());		//キャラクターの描画
+	}
 	DrawGraph(0 + myX, 125 + myY, Image::getIns()->getWindowImage(), TRUE);
 	drawHP();
 	drawName();
@@ -202,11 +204,11 @@ int StatusWindow::getDumrollNum(int drumNum) const {
 }
 
 void StatusWindow::drawHP() const {
-	DrawGraph(29 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(0)], TRUE);
-	DrawGraph(37 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(1)], TRUE);
+	if (hp >= 800) DrawGraph(29 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(0)], TRUE);
+	if (hp >= 80) DrawGraph(37 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(1)], TRUE);
 	DrawGraph(45 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(2)], TRUE);
-	DrawGraph(29 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(3)], TRUE);
-	DrawGraph(37 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(4)], TRUE);
+	if (pp >= 800) DrawGraph(29 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(3)], TRUE);
+	if (pp >= 80) DrawGraph(37 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(4)], TRUE);
 	DrawGraph(45 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(5)], TRUE);
 }
 

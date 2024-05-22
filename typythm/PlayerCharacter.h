@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Instrument.h"
 #include "BeatManager.h"
+#include "MessageWindow.h"
 
 class PlayerCharacter : public Character
 {
@@ -17,6 +18,7 @@ public:
 	void setMyTurn(int Number);
 	void setEnemyInstance(int enemyNum, Enemy* enemyInstance);
 	void setBeatManager(BeatManager* beatManagerInstance) { beatManager = beatManagerInstance; }
+	void setMessageWindow(MessageWindow* messageInstance) { messageWindow = messageInstance; }
 	void setCharacterId(int Number);
 	void setInstrumentNumber(int Number);
 	void reverseCharacter();
@@ -44,6 +46,7 @@ private:
 	int subSoundNumber;
 	int characterID;
 	int damage;
+	int turnDamage;
 	bool reverseFlag;
 	Enemy* enemyA;
 	Enemy* enemyB;
@@ -52,5 +55,6 @@ private:
 	Enemy* enemyE;
 	Instrument* myInstrument;
 	BeatManager* beatManager;
+	MessageWindow* messageWindow;
 };
 

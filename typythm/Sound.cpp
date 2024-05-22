@@ -63,6 +63,7 @@ Sound::Sound() {
     BattleSE[0] = myLoadSoundMem("Assets/Sounds/Battle/Bash.wav");
     BattleSE[1] = myLoadSoundMem("Assets/Sounds/Battle/AllyTurn.wav");
     BattleSE[2] = myLoadSoundMem("Assets/Sounds/Battle/Smaash.wav");
+    BattleSE[3] = myLoadSoundMem("Assets/Sounds/Battle/Defeated.wav");
 }
 
 /*!

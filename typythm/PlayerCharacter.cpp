@@ -16,6 +16,18 @@ PlayerCharacter::PlayerCharacter() {
 }
 
 bool PlayerCharacter::update() {
+	if (!enemyB->getAlive() && characterID == 1 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(1);
+	}
+	if (!enemyC->getAlive() && characterID == 2 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(2);
+	}
+	if (!enemyD->getAlive() && characterID == 3 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(3);
+	}
 	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
 		isActive = true;
 		scoreCheck();
@@ -27,10 +39,12 @@ bool PlayerCharacter::update() {
 		}
 		if (Pad::getIns()->get(ePad::A) == 1) {
 			playMainSoundNumberMem(mainSoundNumber);
+			//playMainSoundNumberMem(mainSoundNumber);
 			setPP(mainSoundNumber);
-			//PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+			PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
 			reverseCharacter();
 			damage = scoreCheck();
+			turnDamage += damage;
 			if (damage == 80) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
 			enemyC->getDamage(damage);
 			mainSoundNumber++;
@@ -49,13 +63,13 @@ bool PlayerCharacter::update() {
 			PlaySoundMem(Sound::getIns()->getBattleSE()[1], DX_PLAYTYPE_BACK);
 			isActive = false;
 		}
-		if (Pad::getIns()->get(ePad::change) == 1) {
-			alwaysActive = !alwaysActive;
-		}
-		if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
-			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
-			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
-		}
+		//if (Pad::getIns()->get(ePad::change) == 1) {
+		//	alwaysActive = !alwaysActive;
+		//}
+		//if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
+		//	myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+		//	myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+		//}
 		//if (Pad::getIns()->get(ePad::L) == 1) {
 		//	GameManager::getIns()->minusTurn();
 		//	isActive = false;
