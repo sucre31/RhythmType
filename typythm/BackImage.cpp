@@ -2,6 +2,7 @@
 #include <Dxlib.h>
 #include "Image.h"
 #include "Define.h"
+#include "GameManager.h"
 
 BackImage::BackImage() {
 	AnimeNum = 0;
@@ -9,9 +10,11 @@ BackImage::BackImage() {
 }
 
 bool BackImage::update() {
-	deley++;
-	if (deley % 10 == 0) {
-		AnimeNum = (++AnimeNum) % 14;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) {
+		deley++;
+		if (deley % 10 == 0) {
+			AnimeNum = (++AnimeNum) % 14;
+		}
 	}
 	return true;
 }

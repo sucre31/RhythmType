@@ -1,6 +1,7 @@
 #include <math.h>
 #include "DxLib.h"
 #include "FpsControl.h"
+#include "BeatManager.h"
 
 void FpsControl::FpsControll_Initialize() {
 	mStartTime = GetNowCount();
@@ -19,11 +20,23 @@ bool FpsControl::Update(){
 		mStartTime = t;
 	}
 	mCount++;
+	FrameCount++;
 	return true;
 }
 
 void FpsControl::Draw(){
-	DrawFormatString(280, 10, GetColor(255, 255, 255), "%.1f", mFps);
+	DrawFormatString(280, 10, GetColor(255, 255, 255), "%.1f", mFps / 20);
+}
+
+int FpsControl::getFrameRateNumber() {
+	return FrameCount / 20;
+}
+
+bool FpsControl::isFrameChanged() {
+	if ((int)(mFps / 60) == 0) {
+		return false;
+	}
+	return (FrameCount % (int)(mFps / 60) == 0);
 }
 
 void FpsControl::Wait() {

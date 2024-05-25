@@ -52,6 +52,10 @@ Sound::Sound() {
     dusterBattleSounds[7] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass7.wav");
     dusterBattleSounds[8] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass8.wav");
     dusterBattleSounds[9] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass9.wav");
+    dusterBattleSounds[10] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass10.wav");
+    dusterBattleSounds[11] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass11.wav");
+    dusterBattleSounds[12] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass12.wav");
+    dusterBattleSounds[13] = myLoadSoundMem("Assets/Sounds/Duster/DusterBass13.wav");
     boneyBattleSounds[0] = myLoadSoundMem("Assets/Sounds/Boney/BoneyBark0.wav");
     boneyBattleSounds[1] = myLoadSoundMem("Assets/Sounds/Boney/BoneyBark1.wav");
     boneyBattleSounds[2] = myLoadSoundMem("Assets/Sounds/Boney/BoneyBark2.wav");

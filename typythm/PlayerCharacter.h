@@ -4,6 +4,7 @@
 #include "Instrument.h"
 #include "BeatManager.h"
 #include "MessageWindow.h"
+#include "EnemyManager.h"
 
 class PlayerCharacter : public Character
 {
@@ -16,7 +17,7 @@ public:
 	void setPP(int PP);
 	void setName(int charNum, int charSpriteNum);
 	void setMyTurn(int Number);
-	void setEnemyInstance(int enemyNum, Enemy* enemyInstance);
+	void setEnemyManagerInstance(EnemyManager* enemyManagerInstance);
 	void setBeatManager(BeatManager* beatManagerInstance) { beatManager = beatManagerInstance; }
 	void setMessageWindow(MessageWindow* messageInstance) { messageWindow = messageInstance; }
 	void setCharacterId(int Number);
@@ -48,11 +49,7 @@ private:
 	int damage;
 	int turnDamage;
 	bool reverseFlag;
-	Enemy* enemyA;
-	Enemy* enemyB;
-	Enemy* enemyC;
-	Enemy* enemyD;
-	Enemy* enemyE;
+	EnemyManager* enemyManagerIns;
 	Instrument* myInstrument;
 	BeatManager* beatManager;
 	MessageWindow* messageWindow;

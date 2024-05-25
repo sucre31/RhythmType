@@ -22,11 +22,7 @@ GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) 
 	playerB = new PlayerCharacter();
 	playerC = new PlayerCharacter();
 	playerD = new PlayerCharacter();
-	enemyA = new Enemy(-120, 0);
-	enemyB = new Enemy(-60, 0);
-	enemyC = new Enemy(0, 0);
-	enemyD = new Enemy(60, 0);
-	enemyE = new Enemy(120, 0);
+	enemyManager = new EnemyManager();
 	_backImage = make_shared<BackImage>();
 	beatManager = new BeatManager();
 
@@ -43,11 +39,7 @@ void GameScene::update() {
 	playerB->update();
 	playerC->update();
 	playerD->update();
-	enemyA->update();
-	enemyB->update();
-	enemyC->update();
-	enemyD->update();
-	enemyE->update();
+	enemyManager->update();
 	_statusWindowA->update();
 	_statusWindowB->update();
 	_statusWindowC->update();
@@ -75,11 +67,7 @@ void GameScene::draw() const {
 	_statusWindowC->draw();
 	_statusWindowD->draw();
 	messageWindow->draw();
-	enemyA->draw();
-	enemyB->draw();
-	enemyC->draw();
-	enemyD->draw();
-	enemyE->draw();
+	enemyManager->draw();
 
 }
 
@@ -149,28 +137,12 @@ void GameScene::initCharacter() {
 }
 
 void GameScene::setEnemyInstancetToCharacter() {
-	playerA->setEnemyInstance(0, enemyA);
-	playerA->setEnemyInstance(1, enemyB);
-	playerA->setEnemyInstance(2, enemyC);
-	playerA->setEnemyInstance(3, enemyD);
-	playerA->setEnemyInstance(4, enemyE);
 	playerA->setBeatManager(beatManager);
-	playerB->setEnemyInstance(0, enemyA);
-	playerB->setEnemyInstance(1, enemyB);
-	playerB->setEnemyInstance(2, enemyC);
-	playerB->setEnemyInstance(3, enemyD);
-	playerB->setEnemyInstance(4, enemyE);
+	playerA->setEnemyManagerInstance(enemyManager);
 	playerB->setBeatManager(beatManager);
-	playerC->setEnemyInstance(0, enemyA);
-	playerC->setEnemyInstance(1, enemyB);
-	playerC->setEnemyInstance(2, enemyC);
-	playerC->setEnemyInstance(3, enemyD);
-	playerC->setEnemyInstance(4, enemyE);
+	playerB->setEnemyManagerInstance(enemyManager);
 	playerC->setBeatManager(beatManager);
-	playerD->setEnemyInstance(0, enemyA);
-	playerD->setEnemyInstance(1, enemyB);
-	playerD->setEnemyInstance(2, enemyC);
-	playerD->setEnemyInstance(3, enemyD);
-	playerD->setEnemyInstance(4, enemyE);
+	playerC->setEnemyManagerInstance(enemyManager);
 	playerD->setBeatManager(beatManager);
+	playerD->setEnemyManagerInstance(enemyManager);
 }

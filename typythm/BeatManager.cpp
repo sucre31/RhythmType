@@ -1,5 +1,7 @@
+#include <Dxlib.h>
 #include "BeatManager.h"
 #include "Sound.h"
+
 
 BeatManager::BeatManager() {
 	bpm = 165;
@@ -9,14 +11,18 @@ BeatManager::BeatManager() {
 	deleyTime = (int)((60000 / bpm / 4) / 2);
 	targetTime = 0;
 	//activeNumberOfStep = 0;
-	timeOfLoopHead = 0;
+	//timeOfLoopHead = 0;
 	stepChangeFlag = false;
 	numberOfStep = -1;
 	currentScore = 1;
+	//WaitTime = 0;
+	//StepScore = 0;
 }
 
 bool BeatManager::update() {
 	int tmpStep;
+	//WaitTime = 0;
+	//waitForNext();
 	nowTime = GetNowHiPerformanceCount();
 	//currentTime = (int)((nowTime - startTime) / 1000);
 	//tmpStep = (int)(((nowTime - startTime) / 1000) / (15000 / bpm));
@@ -24,15 +30,17 @@ bool BeatManager::update() {
 	if (numberOfStep != tmpStep){
 		stepChangeFlag = true;
 		numberOfStep = tmpStep;
-		if (numberOfStep % 128 == 0) {
-			timeOfLoopHead = GetNowHiPerformanceCount();
-		}
+		//if (numberOfStep % 128 == 0) {
+		//	timeOfLoopHead = GetNowHiPerformanceCount();
+		//}
 	}
 	else {
 		stepChangeFlag = false;
 	}
+	checkNowScore(numberOfStep);
 	//activeNumberOfStep = (int) ((currentTime + deleyTime)/ timeOfOneStep);
 	//if (activeNumberOfStep < 1) activeNumberOfStep = 1;
+
 	return true;
 }
 
@@ -40,13 +48,19 @@ void BeatManager::draw() const{
 	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", numberOfStep);
 	//DrawFormatString(100, 0, GetColor(255, 255, 255), "%f", (((nowTime - startTime) / 1000) / (15000 / bpm)));
 	//DrawFormatString(0, 10, GetColor(255, 255, 255), "%d", activeNumberOfStep);
-	DrawFormatString(40 + currentScore, 10, GetColor(255, 255, 255), "%d", currentScore);
+	if (isBeatEarly) {
+		DrawFormatString(40 + currentScore, 10, GetColor(255, 255, 0), "%d", currentScore);
+	}
+	else {
+		DrawFormatString(40 + currentScore, 10, GetColor(0, 255, 255), "%d", currentScore);
+	}
+	//if (WaitTime != 0) DrawFormatString(200, 10, GetColor(255, 255, 255), "%d", WaitTime);
 }
 
 void BeatManager::startMusic(int musicNumber) {
 	if (musicNumber < 2) PlaySoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber], DX_PLAYTYPE_BACK);
 	startTime = GetNowHiPerformanceCount();
-	timeOfLoopHead = GetNowHiPerformanceCount();
+	//timeOfLoopHead = GetNowHiPerformanceCount();
 }
 
 /*!
@@ -54,12 +68,20 @@ void BeatManager::startMusic(int musicNumber) {
 @param targetStep 判定するステップ
 */
 int BeatManager::checkNowScore(int targetStep) {
+	int tmpScore;
 	//targetStep = targetStep % 128;
 	//targetTime = ((int)((60000 / bpm / 4) * targetStep) % (int)((60000 / bpm / 4) * 128));
-	targetStep = targetStep;
+	//targetStep = targetStep;
 	targetTime = ((int)((60000 / bpm / 4) * targetStep) );
-	if (abs(((nowTime - startTime) / 1000) - targetTime) < (deleyTime * 4)) {
-		currentScore = 80 - (int)abs(((nowTime - startTime) / 1000) - targetTime) * 2;
+	tmpScore = ((nowTime - startTime) / 1000) - targetTime;
+	if (abs(tmpScore) < (deleyTime * 4)) {
+		currentScore = 80 - (int)abs(tmpScore) * 2;
+		if (tmpScore < 0) {
+			isBeatEarly = true;
+		}
+		else {
+			isBeatEarly = false;
+		}
 		if (currentScore < 0) currentScore = 1;
 		return currentScore;
 	}
@@ -67,3 +89,18 @@ int BeatManager::checkNowScore(int targetStep) {
 	return -1;
 }
 
+///*!
+//@brief　次のビートまでの時間を算出
+//*/
+//int BeatManager::checkTimeNext() {
+//	targetTime = ((int)((60000 / bpm / 4) * (numberOfStep + 1)));
+//	return targetTime - ((nowTime - startTime) / 1000);
+//}
+//
+//void BeatManager::waitForNext() {
+//	int cotmpTime = checkTimeNext();
+//	if ((cotmpTime < 20) && (cotmpTime > 15)) {
+//		WaitTime = cotmpTime;
+//		//Sleep(cotmpTime - 15);
+//	}
+//}

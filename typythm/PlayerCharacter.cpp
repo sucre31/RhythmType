@@ -16,15 +16,15 @@ PlayerCharacter::PlayerCharacter() {
 }
 
 bool PlayerCharacter::update() {
-	if (!enemyB->getAlive() && characterID == 1 && !alwaysActive) {
+	if (!enemyManagerIns->getEnemyIns(1)->getAlive() && characterID == 1 && !alwaysActive) {
 		alwaysActive = true;
 		messageWindow->setMessage(1);
 	}
-	if (!enemyC->getAlive() && characterID == 2 && !alwaysActive) {
+	if (!enemyManagerIns->getEnemyIns(2)->getAlive() && characterID == 2 && !alwaysActive) {
 		alwaysActive = true;
 		messageWindow->setMessage(2);
 	}
-	if (!enemyD->getAlive() && characterID == 3 && !alwaysActive) {
+	if (!enemyManagerIns->getEnemyIns(3)->getAlive() && characterID == 3 && !alwaysActive) {
 		alwaysActive = true;
 		messageWindow->setMessage(3);
 	}
@@ -46,7 +46,7 @@ bool PlayerCharacter::update() {
 			damage = scoreCheck();
 			turnDamage += damage;
 			if (damage == 80) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
-			enemyC->getDamage(damage);
+			enemyManagerIns->getEnemyIns(2)->getDamage(damage);
 			mainSoundNumber++;
 			if (mainSoundNumber % 12 == 6 && characterID == 0) mainSoundNumber = 8;
 		}
@@ -66,10 +66,15 @@ bool PlayerCharacter::update() {
 		//if (Pad::getIns()->get(ePad::change) == 1) {
 		//	alwaysActive = !alwaysActive;
 		//}
-		//if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
-		//	myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
-		//	myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
-		//}
+		if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+			if (myInstrument->playWithStep(beatManager->getNumberOfStep(), 1)) {
+				damage = scoreCheck();
+				if (damage == 80) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+				enemyManagerIns->getEnemyIns(2)->getDamage(damage);
+			}
+		}
 		//if (Pad::getIns()->get(ePad::L) == 1) {
 		//	GameManager::getIns()->minusTurn();
 		//	isActive = false;
@@ -181,26 +186,8 @@ void PlayerCharacter::setInstrumentNumber(int Number) {
 @param charNum 何体目?
 @param enemyInstance 敵のインスタンス
 */
-void PlayerCharacter::setEnemyInstance(int enemyNum, Enemy* enemyInstance) {
-	switch (enemyNum) {
-	case 0:
-		enemyA = enemyInstance;
-		break;
-	case 1:
-		enemyB = enemyInstance;
-		break;
-	case 2:
-		enemyC = enemyInstance;
-		break;
-	case 3:
-		enemyD = enemyInstance;
-		break;
-	case 4:
-		enemyE = enemyInstance;
-		break;
-	default:
-		break;
-	}
+void PlayerCharacter::setEnemyManagerInstance(EnemyManager* enemyInstance) {
+	enemyManagerIns = enemyInstance;
 }
 
 void PlayerCharacter::setCharacterId(int Number) {
@@ -256,16 +243,16 @@ void PlayerCharacter::playSubSoundNumberMem(int numberOfSound) {
 void PlayerCharacter::reverseSub() {
 	switch (subSoundNumber % 4) {
 	case 0:
-		enemyA->getDamage(damage);
+		enemyManagerIns->getEnemyIns(0)->getDamage(damage);
 		break;
 	case 1:
-		enemyB->getDamage(damage);
+		enemyManagerIns->getEnemyIns(1)->getDamage(damage);
 		break;
 	case 2:
-		enemyD->getDamage(damage);
+		enemyManagerIns->getEnemyIns(3)->getDamage(damage);
 		break;
 	case 3:
-		enemyE->getDamage(damage);
+		enemyManagerIns->getEnemyIns(4)->getDamage(damage);
 		break;
 	}
 }

@@ -2,6 +2,7 @@
 #include <Dxlib.h>
 #include "DamageCharacter.h"
 #include "Image.h"
+#include "GameManager.h"
 
 DamageBeat::DamageBeat() {
 	numberOfDamage = 0;
@@ -46,15 +47,17 @@ void DamageBeat::addDamage(int valueOfDamage, int EnemyPosX, int EnemyPosY) {
 
 void DamageBeat::calcDamagePos() {
 	int i;
-	for (i = 0; i < numberOfDamage; i++) {
-		//重力の実装
-		damageNumber[i]->velY += 0.08;
-		//場所の更新
-		damageNumber[i]->x += damageNumber[i]->velX;
-		damageNumber[i]->y += damageNumber[i]->velY;
-		if (damageNumber[i]->y > 180) {						//画面外に行ったらベクターから消去
-			damageNumber.erase(damageNumber.begin() + i);
-			numberOfDamage--;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) {
+		for (i = 0; i < numberOfDamage; i++) {
+			//重力の実装
+			damageNumber[i]->velY += 0.08;
+			//場所の更新
+			damageNumber[i]->x += damageNumber[i]->velX;
+			damageNumber[i]->y += damageNumber[i]->velY;
+			if (damageNumber[i]->y > 180) {						//画面外に行ったらベクターから消去
+				damageNumber.erase(damageNumber.begin() + i);
+				numberOfDamage--;
+			}
 		}
 	}
 }

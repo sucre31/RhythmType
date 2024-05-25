@@ -6,6 +6,7 @@
 #include "Keyboard.h"
 #include "Pad.h"
 #include "Image.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -16,8 +17,10 @@ Looper::Looper()
     Image::getIns()->load();
 
     Parameter parameter;
-    _fps = make_shared<FpsControl>();
+    //_fps = make_shared<FpsControl>();
     _sceneStack.push(make_shared<TitleScene>(this, parameter)); //タイトル画面シーンを作ってpush
+    _fps = new FpsControl();
+    GameManager::getIns()->setFpsIns(_fps);
 }
 /*!
 @brief スタックのトップのシーンの処理をする

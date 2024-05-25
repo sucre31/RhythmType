@@ -4,6 +4,7 @@
 #include <Dxlib.h>
 #include "Image.h"
 #include "GameObject.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ StatusWindow::StatusWindow() {
 }
 
 bool StatusWindow::update() {
+	//if (GameManager::getIns()->getFpsIns()->isFrameChanged()) 
 	frameCount++;
 	setTargetHP(playerCharacter->getHP());
 	setTargetPP(playerCharacter->getPP());
@@ -117,23 +119,25 @@ void StatusWindow::setName() {
 @brief HP/PP‚ð–Ú•W’l‚É‹ß‚Ã‚¯‚Ä‚¢‚­
 */
 void StatusWindow::calcPoint() {
-	if (hp / 8.0 < targetHP) {
-		hp++;
-	}
-	else if (hp / 8.0 > targetHP) {
-		hp--;
-	}
-	if (pp / 8.0 < targetPP) {
-		pp++;
-	}
-	else if (pp / 8.0 > targetPP) {
-		pp--;
-	}
-	if (hp < 0) {
-		hp = 0;
-	}
-	if (pp < 0) {
-		pp = 0;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) {
+		if (hp / 8.0 < targetHP) {
+			hp++;
+		}
+		else if (hp / 8.0 > targetHP) {
+			hp--;
+		}
+		if (pp / 8.0 < targetPP) {
+			pp++;
+		}
+		else if (pp / 8.0 > targetPP) {
+			pp--;
+		}
+		if (hp < 0) {
+			hp = 0;
+		}
+		if (pp < 0) {
+			pp = 0;
+		}
 	}
 }
 

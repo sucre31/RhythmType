@@ -2,6 +2,12 @@
 
 #include "GameObject.h"
 #include "DamageBeat.h"
+
+enum eEnemy
+{
+	batty, pig, spider, rocket 
+};
+
 class Enemy : public GameObject
 {
 public:
@@ -9,12 +15,15 @@ public:
 	~Enemy() = default;
 	bool update() override;
 	void draw() const override;
+	void setNewEnemy(int EnemyID);
 	void getDamage(int valueOfDamage);
+	void getSize();
 	bool getAlive() const { return alive; }
 private:
-	int enemyID;
+	int myID;
 	int HP;
 	int myX, myY;
+	int enemyImageX, enemyImageY;
 	int BeatedMoveX;
 	int count;
 	int frameFromBeatTime;

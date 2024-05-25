@@ -12,7 +12,9 @@ Image::Image()
     windowImage = myLoadGraph("Assets/Sprites/window.png");
     beltImage = myLoadGraph("Assets/Sprites/belt.png");
     beltImage2 = myLoadGraph("Assets/Sprites/belt2.png");
-    MrBattyImage = myLoadGraph("Assets/Sprites/Enemy/batty.png");
+    EnemyImage[0] = myLoadGraph("Assets/Sprites/Enemy/batty.png");
+    EnemyImage[1] = myLoadGraph("Assets/Sprites/Enemy/PigMask.png");
+    EnemyImage[2] = myLoadGraph("Assets/Sprites/Enemy/Spider!.png");
     LucasBattleImage = myLoadGraph("Assets/Sprites/Lucas/LucasBattle.png");
     BoneyBattleImage = myLoadGraph("Assets/Sprites/Boney/BoneyBattle.png");
     KumatoraBattleImage = myLoadGraph("Assets/Sprites/Kumatora/KumatoraBattle.png");
@@ -24,6 +26,7 @@ Image::Image()
     myLoadDivGraph("Assets/Sprites/alphaA.png", 90, 10, 9, 7, 7, characterAlphaA);
     myLoadDivGraph("Assets/Sprites/Battle/Number.png", 30, 10, 3, 16, 16, battleCharacter);
     myLoadDivGraph("Assets/Sprites/backgroundsA.png", 14, 4, 4, 256, 256, backgroundsA);
+
 }
 
 

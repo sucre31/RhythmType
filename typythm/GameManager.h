@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include "FpsControl.h"
 
 class GameManager : public Singleton<GameManager>
 {
@@ -11,9 +12,12 @@ public:
 	int getTurn() { return TurnNum; };
 	void proceedTurn();
 	void initBattle() { TurnNum = 0;}
+	void setFpsIns(FpsControl* _fps) { fpsIns = _fps; }
+	FpsControl* getFpsIns() { return fpsIns; }
 private:
 	bool nextTurnFlag;
 	bool returnTurnFlag;
 	int TurnNum;
+	FpsControl* fpsIns;
 };
 

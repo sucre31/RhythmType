@@ -20,9 +20,24 @@ MessageWindow::MessageWindow() {
 bool MessageWindow::update() {
 	messageCounter++;
 	if (currentTurn != GameManager::getIns()->getTurn()) {
+		currentTurn = GameManager::getIns()->getTurn();
 		messageCounter = 0;
 		messageFlag = true;
 		currentMessageID = currentTurn % 4;
+		switch (currentTurn % 4) {
+		case 0:
+			currentMessageID = 0;
+			break;
+		case 1:
+			currentMessageID = 2;
+			break;
+		case 2:
+			currentMessageID = 3;
+			break;
+		case 3:
+			currentMessageID = 1;
+			break;
+		}
 	}
 	if (messageCounter > 30) messageFlag = false;
 	return true;

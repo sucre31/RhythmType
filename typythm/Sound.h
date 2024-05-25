@@ -22,7 +22,7 @@ private:
 	int myLoadSoundMem(const char*);
 	std::vector<int> sounds;
 	int lucasBattleSounds[24];
-	int dusterBattleSounds[10];
+	int dusterBattleSounds[14];
 	int boneyBattleSounds[8];
 	int kumatoraBattleSounds[14];
 	int BackgroundMusic[2];
