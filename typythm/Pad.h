@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Singleton.h"
 #include <array>
+#include "Singleton.h"
 
 enum ePad {
 	down, left, right, up, A, B, Y, X, L, R, start, change

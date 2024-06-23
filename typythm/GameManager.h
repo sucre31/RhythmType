@@ -10,6 +10,7 @@ public:
 	void nextTurn() { nextTurnFlag = true; }
 	void minusTurn() { returnTurnFlag = true; }		//Šî–{Žg‚í‚È‚¢
 	int getTurn() { return TurnNum; };
+	void setFrameChange(bool isChanged) {}
 	void proceedTurn();
 	void initBattle() { TurnNum = 0;}
 	void setFpsIns(FpsControl* _fps) { fpsIns = _fps; }

@@ -1,5 +1,5 @@
-#include "GameScene.h"
 #include <Dxlib.h>
+#include "GameScene.h"
 #include "GameManager.h"
 #include "Sound.h"
 #include "Pad.h"
@@ -58,6 +58,8 @@ void GameScene::update() {
 void GameScene::draw() const {
 	_backImage->draw();
 	beatManager->draw();
+	enemyManager->draw();
+	_backImage->drawSecond();
 	playerA->draw();
 	playerB->draw();
 	playerC->draw();
@@ -67,7 +69,7 @@ void GameScene::draw() const {
 	_statusWindowC->draw();
 	_statusWindowD->draw();
 	messageWindow->draw();
-	enemyManager->draw();
+	enemyManager->drawSecond();
 
 }
 

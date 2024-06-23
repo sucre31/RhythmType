@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Singleton.h"
 #include <vector>
+#include "Singleton.h"
 
 class Sound final : public Singleton<Sound>
 {

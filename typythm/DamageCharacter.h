@@ -3,7 +3,7 @@ class DamageCharacter
 {
 public:
 	DamageCharacter() = default;
-	~DamageCharacter();
+	~DamageCharacter() = default;
 	double x;
 	double y;
 	int damage;

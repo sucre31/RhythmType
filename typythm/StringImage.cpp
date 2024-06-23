@@ -1,6 +1,6 @@
-#include "StringImage.h"
 #include <string>
 #include <Dxlib.h>
+#include "StringImage.h"
 #include "Image.h"
 
 using namespace std;

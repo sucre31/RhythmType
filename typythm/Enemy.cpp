@@ -57,6 +57,9 @@ void Enemy::draw() const {
 	else {
 		DrawRotaGraph(160 + myX + BeatedMoveX, 90 + myY, 1.0, 0, Image::getIns()->getEnemyImage()[myID], TRUE, reverseFlag);
 	}
+}
+
+void Enemy::drawSecond() const{
 	damageBeat->draw();
 }
 
@@ -73,11 +76,11 @@ void Enemy::setNewEnemy(int EnemyID) {
 	screen = MakeScreen(enemyImageX, enemyImageY, TRUE);
 }
 
-void Enemy::getDamage(int valueOfDamage) {
+void Enemy::getDamage(int valueOfDamage, bool isEarly) {
 	reverseFlag = !reverseFlag;
 	HP -= valueOfDamage;
 	isBeated = true;
 	frameFromBeatTime = 0;
-	damageBeat->addDamage(valueOfDamage, myX, myY);
+	damageBeat->addDamage(valueOfDamage, isEarly,  myX, myY);
 }
 

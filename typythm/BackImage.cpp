@@ -1,5 +1,6 @@
-#include "BackImage.h"
 #include <Dxlib.h>
+
+#include "BackImage.h"
 #include "Image.h"
 #include "Define.h"
 #include "GameManager.h"
@@ -27,6 +28,9 @@ void BackImage::draw() const {
 	GraphFilter(tmpScreenHandle, DX_GRAPH_FILTER_GAUSS, 16, 1200);
 	SetDrawScreen(Image::getIns()->getScreenHandle());
 	DrawGraph(0, 0, tmpScreenHandle, TRUE);
+}
+
+void BackImage::drawSecond() const {
 	DrawGraph(0, 0, Image::getIns()->getBeltImage2(), TRUE);
 	DrawGraph(0, 160, Image::getIns()->getBeltImage(), TRUE);
 }

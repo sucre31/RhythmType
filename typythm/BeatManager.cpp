@@ -74,8 +74,10 @@ int BeatManager::checkNowScore(int targetStep) {
 	//targetStep = targetStep;
 	targetTime = ((int)((60000 / bpm / 4) * targetStep) );
 	tmpScore = ((nowTime - startTime) / 1000) - targetTime;
-	if (abs(tmpScore) < (deleyTime * 4)) {
-		currentScore = 80 - (int)abs(tmpScore) * 2;
+	if (abs(tmpScore) < (deleyTime * 8)) {
+		//currentScore = 80 - (int)abs(tmpScore) * 2;
+		//currentScore = 80 - 21 * log10(fabs(tmpScore) + 1) + (GetRand(20) - 10);
+		currentScore = 80 - 40 * log10(fabs(tmpScore) + 1) + (GetRand(20) - 10);;
 		if (tmpScore < 0) {
 			isBeatEarly = true;
 		}
@@ -88,6 +90,8 @@ int BeatManager::checkNowScore(int targetStep) {
 	currentScore = -30;
 	return -1;
 }
+
+
 
 ///*!
 //@brief　次のビートまでの時間を算出

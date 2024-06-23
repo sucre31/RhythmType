@@ -15,9 +15,11 @@ public:
 	~Enemy() = default;
 	bool update() override;
 	void draw() const override;
+	void drawSecond() const;
 	void setNewEnemy(int EnemyID);
-	void getDamage(int valueOfDamage);
+	void getDamage(int valueOfDamage, bool isEarly);
 	void getSize();
+	int getID() const { return myID; }
 	bool getAlive() const { return alive; }
 private:
 	int myID;

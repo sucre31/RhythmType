@@ -12,6 +12,7 @@ public:
 	void startMusic(int musicNumber);
 	int checkNowScore(int targetStep);
 	int getNumberOfStep() const { return numberOfStep;  }
+	bool isEarly() { return isBeatEarly;}
 	//int checkTimeNext();
 	//void waitForNext();
 	bool isStepChanged() const { return stepChangeFlag; }

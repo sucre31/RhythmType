@@ -19,17 +19,24 @@ bool FpsControl::Update(){
 		mCount = 0;
 		mStartTime = t;
 	}
+	if (rCount == FPS) { //60ƒtƒŒ[ƒ€–Ú‚È‚ç•½‹Ï‚ğŒvZ‚·‚é
+		int t = GetNowCount();
+		rFps = 1000.f / ((t - rStartTime) / (float)FPS);
+		rCount = 0;
+		rStartTime = t;
+	}
+	rCount++;
 	mCount++;
 	FrameCount++;
-	return true;
+	return true; 
 }
 
 void FpsControl::Draw(){
-	DrawFormatString(280, 10, GetColor(255, 255, 255), "%.1f", mFps / 20);
+	DrawFormatString(280, 10, GetColor(255, 255, 255), "%.1f", rFps / 25);
 }
 
 int FpsControl::getFrameRateNumber() {
-	return FrameCount / 20;
+	return FrameCount / 25;
 }
 
 bool FpsControl::isFrameChanged() {

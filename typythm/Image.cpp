@@ -1,8 +1,6 @@
-#include "Image.h"
-
-#include "Define.h"
-
 #include <DxLib.h>
+#include "Image.h"
+#include "Define.h"
 
 Image::Image()
 {
@@ -12,9 +10,13 @@ Image::Image()
     windowImage = myLoadGraph("Assets/Sprites/window.png");
     beltImage = myLoadGraph("Assets/Sprites/belt.png");
     beltImage2 = myLoadGraph("Assets/Sprites/belt2.png");
+    hitImage[0] = myLoadGraph("Assets/Sprites/Battle/hit.png");
+    hitImage[1] = myLoadGraph("Assets/Sprites/Battle/hit2.png");
     EnemyImage[0] = myLoadGraph("Assets/Sprites/Enemy/batty.png");
     EnemyImage[1] = myLoadGraph("Assets/Sprites/Enemy/PigMask.png");
     EnemyImage[2] = myLoadGraph("Assets/Sprites/Enemy/Spider!.png");
+    EnemyImage[3] = myLoadGraph("Assets/Sprites/Enemy/SaiRocket.png");
+    EnemyImage[4] = myLoadGraph("Assets/Sprites/Enemy/Titanian.png");
     LucasBattleImage = myLoadGraph("Assets/Sprites/Lucas/LucasBattle.png");
     BoneyBattleImage = myLoadGraph("Assets/Sprites/Boney/BoneyBattle.png");
     KumatoraBattleImage = myLoadGraph("Assets/Sprites/Kumatora/KumatoraBattle.png");

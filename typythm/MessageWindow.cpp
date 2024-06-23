@@ -1,6 +1,6 @@
-#include "MessageWindow.h"
 #include <Dxlib.h>
 #include <string>
+#include "MessageWindow.h"
 #include "Image.h"
 #include "GameManager.h"
 
@@ -18,7 +18,7 @@ MessageWindow::MessageWindow() {
 }
 
 bool MessageWindow::update() {
-	messageCounter++;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) messageCounter++;
 	if (currentTurn != GameManager::getIns()->getTurn()) {
 		currentTurn = GameManager::getIns()->getTurn();
 		messageCounter = 0;

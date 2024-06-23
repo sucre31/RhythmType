@@ -18,11 +18,10 @@ StatusWindow::StatusWindow() {
 }
 
 bool StatusWindow::update() {
-	//if (GameManager::getIns()->getFpsIns()->isFrameChanged()) 
-	frameCount++;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) frameCount++;
 	setTargetHP(playerCharacter->getHP());
 	setTargetPP(playerCharacter->getPP());
-	if (frameCount % 3 != 0) {
+	if (frameCount % 30 != 0) {
 		calcPoint();
 	}
 	

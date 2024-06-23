@@ -1,6 +1,7 @@
+#include <Dxlib.h>
 #include "Instrument.h"
 #include "Sound.h"
-#include <Dxlib.h>
+
 
 void Instrument::playMainInstrument(int NumberOfTone){
 	int targetPlayNum = 0;
@@ -88,44 +89,63 @@ void Instrument::playMainInstrument(int NumberOfTone){
 		}
 		break;
 	case 2:
-		NumberOfTone = NumberOfTone % 64;
-		tmpNum = (NumberOfTone / 8);
-		switch (tmpNum) {
-		case 0:
-			targetPlayNum = 0;
-			break;
-		case 1:
-			targetPlayNum = 1;
-			break;
-		case 2:
-			targetPlayNum = 2;
-			break;
-		case 3:
-			targetPlayNum = 3;
-			break;
-		case 4:
-			targetPlayNum = 0;
-			break;
-		case 5:
-			targetPlayNum = 1;
-			break;
-		case 6:
-			targetPlayNum = 2;
-			break;
-		case 7:
-			targetPlayNum = 2;
-			break;
-		}
-		if (NumberOfTone >= 62) {
-			targetPlayNum = 4;
-		}
-		if (NumberOfTone % 2 == 0) {
-			targetPlayNum = targetPlayNum * 2;
-			PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[targetPlayNum], DX_PLAYTYPE_BACK);
+		NumberOfTone = NumberOfTone % 66;
+		if (NumberOfTone < 62) {
+			tmpNum = (NumberOfTone / 8);
+			switch (tmpNum) {
+			case 0:
+				targetPlayNum = 0;
+				break;
+			case 1:
+				targetPlayNum = 1;
+				break;
+			case 2:
+				targetPlayNum = 2;
+				break;
+			case 3:
+				targetPlayNum = 3;
+				break;
+			case 4:
+				targetPlayNum = 0;
+				break;
+			case 5:
+				targetPlayNum = 1;
+				break;
+			case 6:
+				targetPlayNum = 2;
+				break;
+			case 7:
+				targetPlayNum = 2;
+				break;
+			default:
+				targetPlayNum = 0;
+				break;
+			}
+			if (NumberOfTone >= 62) {
+				targetPlayNum = 4;
+			}
+			if (NumberOfTone % 2 == 0) {
+				targetPlayNum = targetPlayNum * 2;
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[targetPlayNum], DX_PLAYTYPE_BACK);
+			}
+			else {
+				targetPlayNum = targetPlayNum * 2 + 1;
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[targetPlayNum], DX_PLAYTYPE_BACK);
+			}
 		}
 		else {
-			targetPlayNum = targetPlayNum * 2 + 1;
-			PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[targetPlayNum], DX_PLAYTYPE_BACK);
+			if (NumberOfTone == 62) {
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[10], DX_PLAYTYPE_BACK);
+			}
+			else if (NumberOfTone == 63) {
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[11], DX_PLAYTYPE_BACK);
+			}
+			else if (NumberOfTone == 64) {
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[12], DX_PLAYTYPE_BACK);
+			}
+			else if (NumberOfTone == 65) {
+				PlaySoundMem(Sound::getIns()->getDusterBattleSounds()[13], DX_PLAYTYPE_BACK);
+			}
 		}
 		break;
 	case 3:
@@ -428,6 +448,9 @@ bool Instrument::playWithStep(int StepNumber, int checkMode) {
 		break;
 	case 2:
 		if(StepNumber % 2 == 0) mainNum = StepNumber / 2;
+		if (StepNumber == 125) mainNum = 63;
+		if (StepNumber == 126) mainNum = 64;
+		if (StepNumber == 127) mainNum = 65;
 		if (mainNum != -1 && checkMode == 0) playMainInstrument(mainNum);
 		if (subNum != -1 && checkMode == 0) playSubInstrument(subNum);
 		break;

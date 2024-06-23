@@ -1,5 +1,5 @@
-#include "Sound.h"
 #include <Dxlib.h>
+#include "Sound.h"
 
 Sound::Sound() {
     BackgroundMusic[0] = myLoadSoundMem("Assets/Sounds/Music/Original.wav");

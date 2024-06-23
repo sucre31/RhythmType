@@ -1,9 +1,9 @@
-#include "Pad.h"
 #include <DxLib.h>
-#include "Keyboard.h"
-#include "Define.h"
 #include <string>
 #include <algorithm>
+#include "Pad.h"
+#include "Keyboard.h"
+#include "Define.h"
 
 using namespace std;
 

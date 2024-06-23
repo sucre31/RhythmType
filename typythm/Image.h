@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Singleton.h"
 #include <vector>
+#include "Singleton.h"
 
 class Image final : public Singleton<Image>
 {
@@ -24,6 +24,7 @@ public:
 	const int* getCharacterAlphaA() const { return characterAlphaA; }
 	const int* getBackgroundsA() const { return backgroundsA; }
 	const int* getBattleCharacter() const{ return battleCharacter; }
+	const int* getHitImage() const { return hitImage; }
 	//int getDrumroll() const { return _drumroll[0]; }
 
 private:
@@ -37,6 +38,7 @@ private:
 	int windowImage;
 	int beltImage;
 	int beltImage2;
+	int hitImage[2];
 	int drumroll[80];
 	int characterHiragana[90];
 	int characterKatakana[90];

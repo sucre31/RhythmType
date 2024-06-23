@@ -5,6 +5,8 @@ GameManager::GameManager() {
 	returnTurnFlag = false;
 }
 
+
+
 void GameManager::proceedTurn() {
 	if (nextTurnFlag) {
 		TurnNum++;
