@@ -1,6 +1,6 @@
-#include "Error.h"
 #include <string>
 #include <DxLib.h>
+#include "Error.h"
 #include "Define.h"
 
 using namespace std;

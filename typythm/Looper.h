@@ -18,5 +18,6 @@ public:
 private:
     int screenRate;
     std::stack<std::shared_ptr<AbstractScene>> _sceneStack; //シーンのスタック
-    std::shared_ptr<FpsControl> _fps;
+    //std::shared_ptr<FpsControl> _fps;
+    FpsControl* _fps;
 };

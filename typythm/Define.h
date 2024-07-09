@@ -13,9 +13,9 @@ public:
 		Stage2
 	};
 
-	enum eLevel {
-		Easy,
-		Normal,
-		LevelNum
+	enum eMusic {
+		BGM,
+		Drum,
+		NoBGM
 	};
 };

@@ -1,5 +1,8 @@
-#include "GameScene.h"
 #include <Dxlib.h>
+#include "GameScene.h"
+#include "GameManager.h"
+#include "Sound.h"
+#include "Pad.h"
 #include "GameManager.h"
 
 using namespace std;
@@ -8,60 +11,66 @@ const char* GameScene::ParameterTagStage = "ParameterTagStage";
 const char* GameScene::ParameterTagLevel = "ParameterTagLevel";
 
 GameScene::GameScene(IOnSceneChangedListener* impl, const Parameter& parameter) : AbstractScene(impl, parameter) {
-	_level = parameter.get(ParameterTagLevel);
+	
+	musicNumber = parameter.get(ParameterTagLevel);
 	_statusWindowA = make_shared<StatusWindow>();
 	_statusWindowB = make_shared<StatusWindow>();
 	_statusWindowC = make_shared<StatusWindow>();
 	_statusWindowD = make_shared<StatusWindow>();
+	messageWindow = new MessageWindow();
 	playerA = new PlayerCharacter();
 	playerB = new PlayerCharacter();
 	playerC = new PlayerCharacter();
 	playerD = new PlayerCharacter();
-	enemyA = new Enemy(-120, 0);
-	enemyB = new Enemy(-60, 0);
-	enemyC = new Enemy(0, 0);
-	enemyD = new Enemy(60, 0);
-	enemyE = new Enemy(120, 0);
+	enemyManager = new EnemyManager();
 	_backImage = make_shared<BackImage>();
+	beatManager = new BeatManager();
 
 	initCharacter();
 	setEnemyInstancetToCharacter();
 	initWindow();
+	beatManager->startMusic(musicNumber);
 }
 
 void GameScene::update() {
+	beatManager->update();
+	GameManager::getIns()->proceedTurn();
 	playerA->update();
 	playerB->update();
 	playerC->update();
 	playerD->update();
-	enemyA->update();
-	enemyB->update();
-	enemyC->update();
-	enemyD->update();
-	enemyE->update();
+	enemyManager->update();
 	_statusWindowA->update();
 	_statusWindowB->update();
 	_statusWindowC->update();
 	_statusWindowD->update();
-	GameManager::getIns()->proceedTurn();
+	messageWindow->update();
 	_backImage->update();
+	if (Pad::getIns()->get(ePad::start) == 1) {
+		Parameter parameter;
+		const bool stackClear = true;
+		StopSoundMem(Sound::getIns()->getBackgroundMusic()[musicNumber]);
+		GameManager::getIns()->initBattle();
+		_implSceneChanged->onSceneChanged(eScene::Title, parameter, stackClear);
+	}
 }
 
 void GameScene::draw() const {
 	_backImage->draw();
+	beatManager->draw();
+	enemyManager->draw();
+	_backImage->drawSecond();
 	playerA->draw();
 	playerB->draw();
 	playerC->draw();
 	playerD->draw();
-	enemyA->draw();
-	enemyB->draw();
-	enemyC->draw();
-	enemyD->draw();
-	enemyE->draw();
 	_statusWindowA->draw();
 	_statusWindowB->draw();
 	_statusWindowC->draw();
 	_statusWindowD->draw();
+	messageWindow->draw();
+	enemyManager->drawSecond();
+
 }
 
 void GameScene::initWindow() {
@@ -89,7 +98,7 @@ void GameScene::initWindow() {
 
 void GameScene::initCharacter() {
 	playerA->setHP(120);
-	playerA->setPP(20);
+	playerA->setPP(00);
 	playerA->setName(0, 41);
 	playerA->setName(1, 82);
 	playerA->setName(2, 5);
@@ -97,8 +106,9 @@ void GameScene::initCharacter() {
 	playerA->setCharacterId(0);
 	playerA->setMyTurn(0);
 	playerA->setCharacterId(0);
+	playerA->setMessageWindow(messageWindow);
 	playerB->setHP(160);
-	playerB->setPP(10);
+	playerB->setPP(0);
 	playerB->setName(0, 7);
 	playerB->setName(1, 30);
 	playerB->setName(2, 19);
@@ -106,8 +116,9 @@ void GameScene::initCharacter() {
 	playerB->setMyTurn(3);
 	playerB->setInstrumentNumber(1);
 	playerB->setCharacterId(1);
+	playerB->setMessageWindow(messageWindow);
 	playerC->setHP(250);
-	playerC->setPP(70);
+	playerC->setPP(0);
 	playerC->setName(0, 60);
 	playerC->setName(1, 12);
 	playerC->setName(2, 15);
@@ -115,6 +126,7 @@ void GameScene::initCharacter() {
 	playerC->setMyTurn(1);
 	playerC->setInstrumentNumber(2);
 	playerC->setCharacterId(2);
+	playerC->setMessageWindow(messageWindow);
 	playerD->setHP(150);
 	playerD->setPP(0);
 	playerD->setName(0, 69);
@@ -123,27 +135,16 @@ void GameScene::initCharacter() {
 	playerD->setMyTurn(2);
 	playerD->setInstrumentNumber(3);
 	playerD->setCharacterId(3);
+	playerD->setMessageWindow(messageWindow);
 }
 
 void GameScene::setEnemyInstancetToCharacter() {
-	playerA->setEnemyInstance(0, enemyA);
-	playerA->setEnemyInstance(1, enemyB);
-	playerA->setEnemyInstance(2, enemyC);
-	playerA->setEnemyInstance(3, enemyD);
-	playerA->setEnemyInstance(4, enemyE);
-	playerB->setEnemyInstance(0, enemyA);
-	playerB->setEnemyInstance(1, enemyB);
-	playerB->setEnemyInstance(2, enemyC);
-	playerB->setEnemyInstance(3, enemyD);
-	playerB->setEnemyInstance(4, enemyE);
-	playerC->setEnemyInstance(0, enemyA);
-	playerC->setEnemyInstance(1, enemyB);
-	playerC->setEnemyInstance(2, enemyC);
-	playerC->setEnemyInstance(3, enemyD);
-	playerC->setEnemyInstance(4, enemyE);
-	playerD->setEnemyInstance(0, enemyA);
-	playerD->setEnemyInstance(1, enemyB);
-	playerD->setEnemyInstance(2, enemyC);
-	playerD->setEnemyInstance(3, enemyD);
-	playerD->setEnemyInstance(4, enemyE);
+	playerA->setBeatManager(beatManager);
+	playerA->setEnemyManagerInstance(enemyManager);
+	playerB->setBeatManager(beatManager);
+	playerB->setEnemyManagerInstance(enemyManager);
+	playerC->setBeatManager(beatManager);
+	playerC->setEnemyManagerInstance(enemyManager);
+	playerD->setBeatManager(beatManager);
+	playerD->setEnemyManagerInstance(enemyManager);
 }

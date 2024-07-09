@@ -1,4 +1,5 @@
 #include <Dxlib.h>
+
 #include "PlayerCharacter.h"
 #include "Pad.h"
 #include "Sound.h"
@@ -9,30 +10,144 @@ PlayerCharacter::PlayerCharacter() {
 	mainSoundNumber = 0;
 	subSoundNumber = 0;
 	myInstrument = new Instrument();
+	//myInstrument->setBeatManager(beatManager);
+	reverseFlag = FALSE;
+	alwaysActive = false;
+	damage = 0;
 }
 
 bool PlayerCharacter::update() {
+	if (!enemyManagerIns->getEnemyIns(1)->getAlive() && characterID == 1 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(1);
+	}
+	if (!enemyManagerIns->getEnemyIns(2)->getAlive() && characterID == 2 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(2);
+	}
+	if (!enemyManagerIns->getEnemyIns(3)->getAlive() && characterID == 3 && !alwaysActive) {
+		alwaysActive = true;
+		messageWindow->setMessage(3);
+	}
 	if (GameManager::getIns()->getTurn() % 4 == myTurn) {
 		isActive = true;
-		if (Pad::getIns()->get(ePad::up) == 1) {
+		scoreCheck();
+		if (Pad::getIns()->get(ePad::up) >= 1) {
 			myHP++;
 		}
-		if (Pad::getIns()->get(ePad::down) == 1) {
+		if (Pad::getIns()->get(ePad::down) >= 1) {
 			myHP--;
 		}
+
+
+		//if (Pad::getIns()->get(ePad::down) == 1) {
+		//	playMainSoundNumberMem(0);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}
+		//if (Pad::getIns()->get(ePad::left) == 1) {
+		//	playMainSoundNumberMem(1);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}
+		//if (Pad::getIns()->get(ePad::up) == 1) {
+		//	playMainSoundNumberMem(2);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}
+		//if (Pad::getIns()->get(ePad::right) == 1) {
+		//	playMainSoundNumberMem(6);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}
+		//if (Pad::getIns()->get(ePad::Y) == 1) {
+		//	playMainSoundNumberMem(7);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}if (Pad::getIns()->get(ePad::B) == 1) {
+		//	playMainSoundNumberMem(8);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}if (Pad::getIns()->get(ePad::A) == 1) {
+		//	playMainSoundNumberMem(9);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}if (Pad::getIns()->get(ePad::X) == 1) {
+		//	playMainSoundNumberMem(11);
+		//	PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+		//	reverseCharacter();
+		//	damage = scoreCheck();
+		//	turnDamage += damage;
+		//	if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+		//	enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+		//}
+
+
 		if (Pad::getIns()->get(ePad::A) == 1) {
 			playMainSoundNumberMem(mainSoundNumber);
-			enemyC->reverse();
+			//playMainSoundNumberMem(mainSoundNumber);
+			setPP(mainSoundNumber);
+			PlaySoundMem(Sound::getIns()->getBattleSE()[0], DX_PLAYTYPE_BACK);
+			reverseCharacter();
+			damage = scoreCheck();
+			turnDamage += damage;
+			if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+			enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
 			mainSoundNumber++;
+			if (mainSoundNumber % 12 == 6 && characterID == 0) mainSoundNumber = 8;
 		}
 		if (Pad::getIns()->get(ePad::left) == 1) {
 			playSubSoundNumberMem(subSoundNumber);
+			setPP(subSoundNumber);
+			reverseCharacter();
+			damage = scoreCheckSub();
 			reverseSub();
 			subSoundNumber++;
 		}
 		if (Pad::getIns()->get(ePad::R) == 1) {
 			GameManager::getIns()->nextTurn();
+			PlaySoundMem(Sound::getIns()->getBattleSE()[1], DX_PLAYTYPE_BACK);
 			isActive = false;
+		}
+		//if (Pad::getIns()->get(ePad::change) == 1) {
+		//	alwaysActive = !alwaysActive;
+		//}
+		if (beatManager->isStepChanged() && Pad::getIns()->get(ePad::L) >= 1) {
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+			myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+			if (myInstrument->playWithStep(beatManager->getNumberOfStep(), 1)) {
+				damage = scoreCheck();
+				if (damage >= 86) PlaySoundMem(Sound::getIns()->getBattleSE()[2], DX_PLAYTYPE_BACK);
+				enemyManagerIns->getEnemyIns(2)->getDamage(damage, beatManager->isEarly());
+			}
 		}
 		//if (Pad::getIns()->get(ePad::L) == 1) {
 		//	GameManager::getIns()->minusTurn();
@@ -42,12 +157,66 @@ bool PlayerCharacter::update() {
 			myHP = 0;
 		}
 	}
+	else if (alwaysActive) {
+		if(beatManager->isStepChanged()) myInstrument->playWithStep(beatManager->getNumberOfStep(), 0);
+	}
 	return true;
 }
 
 void PlayerCharacter::draw() const {
 }
 
+void PlayerCharacter::reverseCharacter() {
+	reverseFlag = !reverseFlag;
+}
+
+/*!
+@brief 現在のターゲットになるステップ数を計算したうえでポイントをもらう
+*/
+int PlayerCharacter::scoreCheck() {
+	int targetStep;
+	int addNumber = 0, addValue = 0;
+	bool isTargetDecide = false;
+	targetStep = beatManager->getNumberOfStep();
+	isTargetDecide = myInstrument->playWithStep(targetStep, 1);
+	while (!isTargetDecide) {
+		if (addNumber % 2 == 0) {
+			addValue = (int)(addNumber / 2 + 1);
+		}
+		else {
+			addValue = - (int)(addNumber / 2 + 1);
+		}
+		isTargetDecide = myInstrument->playWithStep(targetStep + addValue, 1);
+		addNumber++;
+		if (addNumber == 128) break;
+	}
+
+	return beatManager->checkNowScore(targetStep + addValue);
+}
+
+/*!
+@brief 現在のターゲットになるステップ数を計算したうえでポイントをもらう(サブ音源用)
+*/
+int PlayerCharacter::scoreCheckSub() {
+	int targetStep;
+	int addNumber = 0, addValue = 0;
+	bool isTargetDecide = false;
+	targetStep = beatManager->getNumberOfStep();
+	isTargetDecide = myInstrument->playWithStep(targetStep, 2);
+	while (!isTargetDecide) {
+		if (addNumber % 2 == 0) {
+			addValue = (int)(addNumber / 2 + 1);
+		}
+		else {
+			addValue = -(int)(addNumber / 2 + 1);
+		}
+		isTargetDecide = myInstrument->playWithStep(targetStep + addValue, 2);
+		addNumber++;
+		if (addNumber == 128) break;
+	}
+
+	return beatManager->checkNowScore(targetStep + addValue);
+}
 
 
 /*!
@@ -91,26 +260,8 @@ void PlayerCharacter::setInstrumentNumber(int Number) {
 @param charNum 何体目?
 @param enemyInstance 敵のインスタンス
 */
-void PlayerCharacter::setEnemyInstance(int enemyNum, Enemy* enemyInstance) {
-	switch (enemyNum) {
-	case 0:
-		enemyA = enemyInstance;
-		break;
-	case 1:
-		enemyB = enemyInstance;
-		break;
-	case 2:
-		enemyC = enemyInstance;
-		break;
-	case 3:
-		enemyD = enemyInstance;
-		break;
-	case 4:
-		enemyE = enemyInstance;
-		break;
-	default:
-		break;
-	}
+void PlayerCharacter::setEnemyManagerInstance(EnemyManager* enemyInstance) {
+	enemyManagerIns = enemyInstance;
 }
 
 void PlayerCharacter::setCharacterId(int Number) {
@@ -156,150 +307,26 @@ int PlayerCharacter::getPP() const {
 @brief メインの音を順番に並べる
 */
 void PlayerCharacter::playMainSoundNumberMem(int numberOfSound) {
-	numberOfSound = numberOfSound % 12;
-	switch (numberOfSound) {
-	case 0:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 1:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[1], DX_PLAYTYPE_BACK);
-		break;
-	case 2:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[2], DX_PLAYTYPE_BACK);
-		break;
-	case 3:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 4:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[1], DX_PLAYTYPE_BACK);
-		break;
-	case 5:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[2], DX_PLAYTYPE_BACK);
-		break;
-	case 6:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[3], DX_PLAYTYPE_BACK);
-		break;
-	case 7:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[4], DX_PLAYTYPE_BACK);
-		break;
-	case 8:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[5], DX_PLAYTYPE_BACK);
-		break;
-	case 9:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[6], DX_PLAYTYPE_BACK);
-		break;
-	case 10:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[0], DX_PLAYTYPE_BACK);
-		break;
-	case 11:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[7], DX_PLAYTYPE_BACK);
-		break;
-	}
+	myInstrument->playMainInstrument(numberOfSound);
 }
 
 void PlayerCharacter::playSubSoundNumberMem(int numberOfSound) {
-	numberOfSound = numberOfSound % 28;
-	switch (numberOfSound) {
-	case 0:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[8], DX_PLAYTYPE_BACK);
-		break;
-	case 1:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[9], DX_PLAYTYPE_BACK);
-		break;
-	case 2:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[10], DX_PLAYTYPE_BACK);
-		break;
-	case 3:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[11], DX_PLAYTYPE_BACK);
-		break;
-	case 4:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[12], DX_PLAYTYPE_BACK);
-		break;
-	case 5:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[13], DX_PLAYTYPE_BACK);
-		break;
-	case 6:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[14], DX_PLAYTYPE_BACK);
-		break;
-	case 7:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[15], DX_PLAYTYPE_BACK);
-		break;
-	case 8:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[16], DX_PLAYTYPE_BACK);
-		break;
-	case 9:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[17], DX_PLAYTYPE_BACK);
-		break;
-	case 10:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[18], DX_PLAYTYPE_BACK);
-		break;
-	case 11:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[19], DX_PLAYTYPE_BACK);
-		break;
-	case 12:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[20], DX_PLAYTYPE_BACK);
-		break;
-	case 13:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[21], DX_PLAYTYPE_BACK);
-		break;
-	case 14:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[22], DX_PLAYTYPE_BACK);
-		break;
-	case 15:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[23], DX_PLAYTYPE_BACK);
-		break;
-	case 16:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[8], DX_PLAYTYPE_BACK);
-		break;
-	case 17:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[9], DX_PLAYTYPE_BACK);
-		break;
-	case 18:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[10], DX_PLAYTYPE_BACK);
-		break;
-	case 19:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[11], DX_PLAYTYPE_BACK);
-		break;
-	case 20:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[12], DX_PLAYTYPE_BACK);
-		break;
-	case 21:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[13], DX_PLAYTYPE_BACK);
-		break;
-	case 22:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[14], DX_PLAYTYPE_BACK);
-		break;
-	case 23:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[15], DX_PLAYTYPE_BACK);
-		break;
-	case 24:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[16], DX_PLAYTYPE_BACK);
-		break;
-	case 25:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[17], DX_PLAYTYPE_BACK);
-		break;
-	case 26:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[18], DX_PLAYTYPE_BACK);
-		break;
-	case 27:
-		PlaySoundMem(Sound::getIns()->getLucasBattleSounds()[19], DX_PLAYTYPE_BACK);
-		break;
-	}
+	myInstrument->playSubInstrument(numberOfSound);
 }
 
 void PlayerCharacter::reverseSub() {
 	switch (subSoundNumber % 4) {
 	case 0:
-		enemyA->reverse();
+		enemyManagerIns->getEnemyIns(0)->getDamage(damage, beatManager->isEarly());
 		break;
 	case 1:
-		enemyB->reverse();
+		enemyManagerIns->getEnemyIns(1)->getDamage(damage, beatManager->isEarly());
 		break;
 	case 2:
-		enemyD->reverse();
+		enemyManagerIns->getEnemyIns(3)->getDamage(damage, beatManager->isEarly());
 		break;
 	case 3:
-		enemyE->reverse();
+		enemyManagerIns->getEnemyIns(4)->getDamage(damage, beatManager->isEarly());
 		break;
 	}
 }

@@ -8,6 +8,7 @@ public:
 	~BackImage() = default;
 	bool update() override;
 	void draw() const override;
+	void drawSecond() const;
 private:
 	int AnimeNum;
 	int deley;

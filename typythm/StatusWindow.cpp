@@ -4,6 +4,7 @@
 #include <Dxlib.h>
 #include "Image.h"
 #include "GameObject.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -11,16 +12,16 @@ StatusWindow::StatusWindow() {
 	hp = 120;
 	pp = 30;
 	myX = 0;
-	myY = 20;
+	myY = 23;
 	myNameLength = 0;
 	frameCount = 0;
 }
 
 bool StatusWindow::update() {
-	frameCount++;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) frameCount++;
 	setTargetHP(playerCharacter->getHP());
 	setTargetPP(playerCharacter->getPP());
-	if (frameCount % 3 != 0) {
+	if (frameCount % 30 != 0) {
 		calcPoint();
 	}
 	
@@ -28,7 +29,9 @@ bool StatusWindow::update() {
 }
 
 void StatusWindow::draw() const {
-	if (playerCharacter->getIsActive()) DrawGraph(22 + myX, 109 + myY, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE);
+	if (playerCharacter->getIsActive()) {
+			DrawRotaGraph(29 + myX, 117 + myY, 1.0, 0.0, Image::getIns()->getCharacterBattleImage(playerCharacter->getCharacterID()), TRUE, playerCharacter->getReverseFlag());		//キャラクターの描画
+	}
 	DrawGraph(0 + myX, 125 + myY, Image::getIns()->getWindowImage(), TRUE);
 	drawHP();
 	drawName();
@@ -115,23 +118,25 @@ void StatusWindow::setName() {
 @brief HP/PPを目標値に近づけていく
 */
 void StatusWindow::calcPoint() {
-	if (hp / 8.0 < targetHP) {
-		hp++;
-	}
-	else if (hp / 8.0 > targetHP) {
-		hp--;
-	}
-	if (pp / 8.0 < targetPP) {
-		pp++;
-	}
-	else if (pp / 8.0 > targetPP) {
-		pp--;
-	}
-	if (hp < 0) {
-		hp = 0;
-	}
-	if (pp < 0) {
-		pp = 0;
+	if (GameManager::getIns()->getFpsIns()->isFrameChanged()) {
+		if (hp / 8.0 < targetHP) {
+			hp++;
+		}
+		else if (hp / 8.0 > targetHP) {
+			hp--;
+		}
+		if (pp / 8.0 < targetPP) {
+			pp++;
+		}
+		else if (pp / 8.0 > targetPP) {
+			pp--;
+		}
+		if (hp < 0) {
+			hp = 0;
+		}
+		if (pp < 0) {
+			pp = 0;
+		}
 	}
 }
 
@@ -150,14 +155,14 @@ int StatusWindow::getNameToSprite(int charNum) const {
 */
 int StatusWindow::getDumrollNum(int drumNum) const {
 	int drumSpriteNum = 0;
-	switch (drumNum) {			//HP→MP 3桁目から0スタートで
+	switch (drumNum) {			//HP→PP 3桁目から0スタートで
 	case 0:
 		if ((((hp / 80) * 8) % 80 ) >= 72 && (hp % 80) >= 72) {
 			drumSpriteNum = (((hp / 800) * 8) % 80) + (hp % 8);
 			return drumSpriteNum;
 		}
 		else {
-			drumSpriteNum = (hp / 800) * 8;
+			drumSpriteNum = ((hp / 800) * 8) % 80;
 		}
 		return drumSpriteNum;
 		break;
@@ -176,7 +181,13 @@ int StatusWindow::getDumrollNum(int drumNum) const {
 		return drumSpriteNum;
 		break;
 	case 3:
-		drumSpriteNum = (pp / 800) * 8;
+		if ((((pp / 80) * 8) % 80) >= 72 && (pp % 80) >= 72) {
+			drumSpriteNum = (((pp / 800) * 8) % 80) + (pp % 8);
+			return drumSpriteNum;
+		}
+		else {
+			drumSpriteNum = ((pp / 800) * 8) % 80;
+		}
 		return drumSpriteNum;
 		break;
 	case 4:
@@ -196,11 +207,11 @@ int StatusWindow::getDumrollNum(int drumNum) const {
 }
 
 void StatusWindow::drawHP() const {
-	DrawGraph(29 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(0)], TRUE);
-	DrawGraph(37 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(1)], TRUE);
+	if (hp >= 800) DrawGraph(29 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(0)], TRUE);
+	if (hp >= 80) DrawGraph(37 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(1)], TRUE);
 	DrawGraph(45 + myX, 137 + myY, Image::getIns()->getDrumroll()[getDumrollNum(2)], TRUE);
-	DrawGraph(29 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(3)], TRUE);
-	DrawGraph(37 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(4)], TRUE);
+	if (pp >= 800) DrawGraph(29 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(3)], TRUE);
+	if (pp >= 80) DrawGraph(37 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(4)], TRUE);
 	DrawGraph(45 + myX, 147 + myY, Image::getIns()->getDrumroll()[getDumrollNum(5)], TRUE);
 }
 

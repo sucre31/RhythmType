@@ -5,6 +5,9 @@
 #include "StatusWindow.h"
 #include "BackImage.h"
 #include "Enemy.h"
+#include "BeatManager.h"
+#include "MessageWindow.h"
+#include "EnemyManager.h"
 
 class GameScene : public AbstractScene
 {
@@ -19,7 +22,7 @@ public:
 	void draw() const override;
 
 private:
-	int _level;
+	int musicNumber;
 	void initWindow();
 	void setEnemyInstancetToCharacter();
 	void initCharacter();
@@ -27,16 +30,14 @@ private:
 	PlayerCharacter* playerB;
 	PlayerCharacter* playerC;
 	PlayerCharacter* playerD;
-	Enemy* enemyA;
-	Enemy* enemyB;
-	Enemy* enemyC;
-	Enemy* enemyD;
-	Enemy* enemyE;
+	EnemyManager* enemyManager;
 	std::shared_ptr<StatusWindow> _statusWindowA;
 	std::shared_ptr<StatusWindow> _statusWindowB;
 	std::shared_ptr<StatusWindow> _statusWindowC;
 	std::shared_ptr<StatusWindow> _statusWindowD;
 	std::shared_ptr<BackImage> _backImage;
+	BeatManager* beatManager;
+	MessageWindow* messageWindow;
 
 };
 
